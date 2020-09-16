@@ -1,11 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>The Best</title>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!-- Custom styles for this template -->
+        <link href="style.css" rel="stylesheet">
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div class="name-container">
+            <h1 id="name">Dash Browns</h1>
+          </div>
+    
+          <div class="login-container">
+            <form class="form-signin">
+              <h1 class="h3 mb-3 font-weight-normal">Sign Up.</h1>
+              <input type="full-name" id="nameInput" class="form-control" placeholder="Full name" required autofocus>
+              <input type="email" id="emailInput" class="form-control" placeholder="Email address" required autofocus>
+              <input type="password" id="passwordInput" class="form-control" placeholder="Password" required>
+              <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
+              <p id="no-account">Already have an account? <a href="login.html">Log in.</a></p>
+            </form>
+          </div>  
     </body>
     <script src="main.js"></script>
 </html>
