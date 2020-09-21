@@ -82,3 +82,58 @@ body {
 #no-account {
   text-align: center;
 }
+
+.navbar {
+  overflow: hidden;
+  background-color: red;
+}
+
+nav a {
+  width: 100%;
+  height: 10%;
+  color: #98a2ce;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.form-inline input[type="search"]{
+  margin-bottom: 10px;
+}
+
+.magnif-glass {
+  width: 5px;
+  height: 5px;
+}
+
+aside {
+  width: 30%;
+  padding-right: 15px;
+  margin-right: 15px;
+  float: left;
+  font-style: italic;
+  background-color: blue;
+}
+
+.left-bar {
+  margin: 1em;
+  float: left;
+  width: 25%;
+  padding-left: 15px;
+  margin-left: 15px;
+  background-color: yellow;
+}
+
+main {
+  margin: 1em;
+  float: clear;
+  width: 75%;
+  background-color: red;
+}
