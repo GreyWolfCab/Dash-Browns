@@ -9,6 +9,8 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <!-- Custom styles for this template -->
         <link href="style.css" rel="stylesheet">
+
+        <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase.js"></script> 
     </head>
     <body>
         <div class="name-container">
@@ -25,17 +27,38 @@
               <p id="no-account">Already have an account? <a href="login.html">Log in.</a></p>
             </form>
           </div>
+
+    
     <!-- Import and configure the Firebase SDK -->
     <!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
     <!-- If you do not want to serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
-    <script src="/__/firebase/7.18.0/firebase-app.js"></script>
-    <script src="/__/firebase/7.18.0/firebase-auth.js"></script>
-    <script src="/__/firebase/7.18.0/firebase-storage.js"></script>
-    <script src="/__/firebase/7.18.0/firebase-messaging.js"></script>
-    <script src="/__/firebase/7.18.0/firebase-firestore.js"></script>
-    <script src="/__/firebase/7.18.0/firebase-performance.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-auth.js"></script> 
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+    <script src="/__/firebase/7.21.0/firebase-app.js"></script>
+    <script src="/__/firebase/7.21.0/firebase-auth.js"></script>
+    <script src="/__/firebase/7.21.0/firebase-storage.js"></script>
+    <script src="/__/firebase/7.21.0/firebase-messaging.js"></script>
+    <script src="/__/firebase/7.21.0/firebase-firestore.js"></script>
+    <script src="/__/firebase/7.21.0/firebase-performance.js"></script>
     <script src="/__/firebase/init.js"></script>
-    <script src="main.js"></script>
+    
+    <script src="fireBase.js"></script> 
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyArFP27z6UIzkrz67LXdXGI8j5Y6zVBdUs",
+        authDomain: "dash-browns.firebaseapp.com",
+        databaseURL: "https://dash-browns.firebaseio.com",
+        projectId: "dash-browns",
+        storageBucket: "dash-browns.appspot.com",
+        messagingSenderId: "997568650883",
+        appId: "1:997568650883:web:28b8e5567f9f1a223285b6",
+        measurementId: "G-44Z9ZPLD7L"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script src="main.js"></script> 
     </body>
     
 </html>

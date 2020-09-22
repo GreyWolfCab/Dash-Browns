@@ -23,13 +23,13 @@
 
         <aside class="left-bar">
             <img src="#">
-            <h1 class="user-name">FirstName LastName</h1>
-            <h1>side</h1>
+            <h1 class="user-name">Michael Scott</h1>
+            <h1>hello</h1>
             
         </aside>
 
-        <main>
-            <h1>new post</h1>
+        <main class="main">
+            <h1>world</h1>
         </main>
 
 
@@ -42,8 +42,27 @@
     <script src="/__/firebase/7.18.0/firebase-messaging.js"></script>
     <script src="/__/firebase/7.18.0/firebase-firestore.js"></script>
     <script src="/__/firebase/7.18.0/firebase-performance.js"></script>
+    <script src="/__/firebase/7.18.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-app.js"></script>
     <script src="/__/firebase/init.js"></script>
-    <script src="main.js"></script>
+      
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyArFP27z6UIzkrz67LXdXGI8j5Y6zVBdUs",
+        authDomain: "dash-browns.firebaseapp.com",
+        databaseURL: "https://dash-browns.firebaseio.com",
+        projectId: "dash-browns",
+        storageBucket: "dash-browns.appspot.com",
+        messagingSenderId: "997568650883",
+        appId: "1:997568650883:web:28b8e5567f9f1a223285b6",
+        measurementId: "G-44Z9ZPLD7L"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script> 
+    <script src="main.js"></script> 
     </body>
     
 </html>
