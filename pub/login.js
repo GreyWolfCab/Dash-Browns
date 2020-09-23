@@ -1,32 +1,41 @@
-firebase.auth().onAuthStateChanged(function(user) {
+"use strict";
+
+var signInButtonElement = document.getElementById("login");
+signInButtonElement.addEventListener("click", login);
+
+initFirebaseAuth();
+
+function authStateObserver(user) {
+  
+  var user = firebase.auth().currentUser;
+
   if (user) {
     // User is signed in.
-    window.alert("Welcome back, " + userEmail + "!");   // set pop up to see if it's getting here.
+    window.alert("Welcome back, " + user.displayName + "!");   // set pop up to see if it's getting here.
     
-    uid = user.uid;
-    var user = firebase.auth().currentUser;
-
-    if(user != null){
-        
-        var email_id = user.email;
-
-    }
+    var uid = user.uid;
+    console.log(uid);
+    console.log(user.email);
 
     // window.location.href = "profile.html";
 
 
   } else {
     // No user is signed in.
-    window.alert("Please enter your email and password to login.");  // set pop up to see if it's getting here.
+    //window.alert("Please enter your email and password to login.");  // set pop up to see if it's getting here.
     // window.location.replace("index.html");
+    console.log("not signed in");
   }
-});
+}
 
 // Signs-in Dash Browns.
 function login() {
   
 	var userEmail = document.getElementById("emailInput").value;
-	var userPassword = document.getElementById("passwordInput").value;
+  var userPassword = document.getElementById("passwordInput").value;
+  
+  console.log(userEmail);
+  console.log(userPassword);
 
     // window.alert("Calling login() function with " + userEmail + "!");
     
@@ -35,6 +44,7 @@ function login() {
     firebase.auth().signInWithEmailAndPassword(userEmail, userPassword)
         .then(function(firebaseUser) {
             // Success 
+            console.log("Sign-in success");
         })
         .catch(function(error) {
             // Handle Errors here.
@@ -61,6 +71,10 @@ function initFirebaseAuth() {
 // Returns the signed-in user's display name.
 function getUserName() {
   return firebase.auth().currentUser.displayName;
+}
+
+function getUserId() {
+  return firebase.auth().currentUser.uid;
 }
 
 // Returns true if a user is signed-in.
