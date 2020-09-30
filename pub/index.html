@@ -8,24 +8,33 @@
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <!-- Custom styles for this template -->
-        <link href="style.css" rel="stylesheet">
+        <link href="style.css" type="text/css" rel="stylesheet">
         
     </head>
     <body class="landing-body">
-        <div class="name-container">
-            <h1 id="name">Dash Browns</h1>
-          </div>
+
+      <div class="user-overlay" style="display: none;">
+        <div class="user-prompt">
+          <input type="text" placeholder="First Name">
+          <p>Oh my gosh this is a lot of text</p>
+          <button id="user-info-submit" type="submit">Upload</button>
+        </div>
+      </div>
+
+      <div class="name-container">
+          <h1 id="name">Dash Browns</h1>
+      </div>
     
-          <div class="login-container">
-            <form class="form-signin">
-              <h1 class="h3 mb-3 font-weight-normal">Sign Up.</h1>
-              <input type="full-name" id="nameInput" class="form-control" placeholder="Full name" required autofocus>
-              <input type="email" id="emailInput" class="form-control" placeholder="Email address" required autofocus>
-              <input type="password" id="passwordInput" class="form-control" placeholder="Password" required>
-              <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
-              <p id="no-account">Already have an account? <a href="login.html">Log in.</a></p>
-            </form>
-          </div>
+      <div class="login-container">
+        <div class="form-signin">
+          <h1 class="h3 mb-3 font-weight-normal">Sign Up.</h1>
+          <input type="full-name" id="nameInput" class="form-control" placeholder="Full name" required autofocus>
+          <input type="email" id="emailInput" class="form-control" placeholder="Email address" required autofocus>
+          <input type="password" id="passwordInput" class="form-control" placeholder="Password" required>
+          <button id="create-account" class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
+          <p id="no-account">Already have an account? <a href="login.html">Log in.</a></p>
+        </div>
+      </div>
 
     
     <!-- Import and configure the Firebase SDK -->
