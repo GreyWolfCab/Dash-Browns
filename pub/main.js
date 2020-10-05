@@ -44,12 +44,11 @@ function changeOverlay() {
         const height = document.getElementById("height").value;
         const weight = document.getElementById("weight").value;
         const gender = document.getElementsByName("gender");
-        const sex;
         // get the value of the selected radio button
         for(var i = 0; i < gender.length; i++) {
           if(gender[i].checked)
           {
-            sex = gender[i].value;
+            const sex = gender[i].value;
           }
         }
         
