@@ -24,11 +24,20 @@ function createProfile() {
         var weight = "";
         var sex = "";
 
-        // stick data into json
-
         // do validation
 
         // send to firestore
+        firebase.firestore().collection('profiles').doc(user.getUid()).set({
+          firstname: firstname,
+          lastname: lastname,
+          bio: bio,
+          height: height,
+          weight: weight,
+          sex: sex,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        }).catch(function(error) {
+          console.error('Error writing new message to database', error);
+        });
 
     } else {
         // how did they make it here without being logged in
