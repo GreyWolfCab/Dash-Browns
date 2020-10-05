@@ -43,9 +43,6 @@ function changeOverlay() {
         const bio = document.getElementById("bio").value;
         const height = document.getElementById("height").value;
         const weight = document.getElementById("weight").value;
-        const male = document.getElementById("male").value;
-        const female = document.getElementById("female").value;
-        const other = document.getElementById("other").value;
         const gender = document.getElementsByName("gender");
         const sex;
         // get the value of the selected radio button
