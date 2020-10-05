@@ -25,6 +25,14 @@ function createProfile() {
         var sex = "";
 
         // do validation
+        if (height < 1) {
+          console.error('Height is too small to be valid');
+          break;
+        }
+        if (weight < 1) {
+          console.error('Weight is too small to be valid');
+          break;
+        }
 
         // send to firestore
         firebase.firestore().collection('profiles').doc(user.getUid()).set({
