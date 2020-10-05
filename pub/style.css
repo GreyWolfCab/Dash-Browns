@@ -127,31 +127,25 @@ body  */{
 }
 
 aside {
-  width: 30%;
-  height: 100%;
-  padding-right: 15px;
-  margin-right: 15px;
+  width: 20%;
+  height: auto;
+  margin-left: 0px;
   float: left;
   font-style: italic;
-  background-color: blue;
-}
-
-.left-bar {
-  margin: 1em;
-  float: left;
-  width: 25%;
-  padding-left: 15px;
-  margin-left: 15px;
-  background-color: yellow;
+  background-color: white;
+  text-align: center;
+  /* border: 0.6px groove #B9B9B9; */
 }
 
 main {
-  margin: 1em;
-  float: clear;
-  width: 75%;
-  height: 100%;
-  background-color: red;
+  /* margin: 1em; */
+  float: right;
+  width: 80%;
+  height: auto;
+  background-color: #CADFEE;
   background-image: none;
+  margin: 0%;
+  padding: 1em 14%;
 }
 
 /* CREATE PROFILE  */
@@ -240,4 +234,83 @@ input[type="radio"] {
 #user-info-submit {
   display: inline-block;
   grid-column: 1 / 3;
+}
+
+.far {
+  font-size: 25px;
+  color: lightsteelblue;
+}
+
+.activity {
+  border-color: black;
+  border-width: 2em;
+  background-color: white;
+  color: black;
+} 
+
+.activity-img {
+  float: none;
+  padding-left: 35%;
+}
+
+.caption {
+  text-align: center;
+  background-color: white;
+  margin-bottom: 0em;
+}
+
+.toggles {
+  background-color: white;
+  width: 100%;
+  display: inline-flex;
+  float: right;
+}
+
+.fa-heart {
+  margin: 0em 0em 0em 0px;
+  background-color: white;
+  
+}
+
+.btn-group-vertical {
+  margin-bottom: 5px;
+}
+
+.user-stat {
+  text-align: justify;
+}
+
+#btns {
+  margin-bottom: 1em;
+  padding: 1em;
+}
+
+#btns:hover {
+  background-color: #3CA9E3;
+  color: white;
+}
+
+#btns:active {
+  border-color: #3CA9E3;
+}
+
+.user-stats {
+  text-align: unset;
+}
+
+.item {
+  display: inline-block;
+  text-align: center;
+  margin: 0.2em 0.5em;
+  padding: 1em 1em;
+  background-color: #1A3F56;
+  color: #61BCC6;
+  border: 2px solid #3CA9E3;
+  border-radius: 15%;
+  width: 100px;
+  height: auto;
+}
+.activities {
+  width: 100%;
+  height: auto;
 }
