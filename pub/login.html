@@ -13,20 +13,77 @@
     <link href="style.css" rel="stylesheet">
 
   </head>
-    <body class="log-body">
-      <div class="name-container">
-        <h1 id="name">Dash Browns</h1>
-      </div>
+  <body class="log-body">
 
-      <div class="login-container">
-        <div class="form-signin">
-          <h1 class="h3 mb-3 font-weight-normal">Log In.</h1>
-          <input type="email" id="emailInput" class="form-control" placeholder="Email address" required autofocus>
-          <input type="password" id="passwordInput" class="form-control" placeholder="Password" required>
-          <button id="login" class="btn btn-lg btn-primary btn-block">Log In</button>
-          <p id="no-account">Don't have an account? <a href="index.html">Sign Up.</a></p>
+    <!-- Create user profile popup -->
+    <div class="user-overlay" style="display: none;">
+      <div class="user-prompt">
+        <h1 class="about-me">About Me</h1>
+        <div class="upload-profileimg">
+          <img id="avatar" src="Resources/upload-avatar.png">
+          <div class="upload-profile-wrapper">
+            <button id="upload-btn" class="btn btn-primary btn-sm">Upload Image</button>
+            <input type="file" name="profile-pic" />
+          </div>
         </div>
+        
+        <div class="user-name-container">
+          <div class="fname-container">
+            <label for="firstName" style="font-weight: bold;">First Name: *</label>
+            <input type="text" id="firstName" class="form-control" required autofocus>
+          </div>
+          <div class="lname-container">
+            <label for="lastName" style="font-weight: bold;">Last Name: *</label>
+            <input type="text" id="lastName" class="form-control" required autofocus>
+          </div>
+        </div>
+        <div class="bio-container">
+          <label for="bio" style="font-weight: bold;">Personal Biography: </label>
+          </br>
+          <textarea id="bio" cols="55" rows="4"></textarea>
+        </div> 
+        <div class="height-container">
+          <label for="height" style="font-weight: bold;">Height:</label>
+          <input type="text" id="height" class="form-control">
+          <p style="display: inline-block; margin-left: 10px;">in</p>
+        </div>
+        <div class="weight-container">
+          <label for="weight" style="font-weight: bold;">Weight:</label>
+          <input type="text" id="weight" class="form-control">
+          <p style="display: inline-block; margin-left: 10px;">lbs</p>
+        </div>
+        <div class="gender-container">
+          <div class="gender">
+            <p style="font-weight: bold;">Sex:</p>
+            <label class="radio-inline">
+              <input type="radio" id="male" name="gender" value="male">Male
+            </label>
+            <label class="radio-inline">
+              <input type="radio" id="female" name="gender" value="female">Female
+            </label>
+            <label class="radio-inline">
+              <input type="radio" id="other" name="gender" value="other">Prefer not to answer
+            </label>
+          </div>
+        </div>
+        <button id="user-info-submit" class="btn btn-lg btn-primary btn-block" type="submit">Save and Continue to Dashboard</button>
       </div>
+    </div>
+
+    <!-- login page -->
+    <div class="name-container">
+      <h1 id="name">Dash Browns</h1>
+    </div>
+
+    <div class="login-container">
+      <div class="form-signin">
+        <h1 class="h3 mb-3 font-weight-normal">Log In.</h1>
+        <input type="email" id="emailInput" class="form-control" placeholder="Email address" required autofocus>
+        <input type="password" id="passwordInput" class="form-control" placeholder="Password" required>
+        <button id="login" class="btn btn-lg btn-primary btn-block">Log In</button>
+        <p id="no-account">Don't have an account? <a href="index.html">Sign Up.</a></p>
+      </div>
+    </div>
 
   
     <!-- Import and configure the Firebase SDK -->
@@ -38,6 +95,7 @@
     <script src="/__/firebase/7.21.1/firebase-database.js"></script>
     <script src="/__/firebase/7.21.1/firebase-messaging.js"></script>
     <script src="/__/firebase/7.21.1/firebase-storage.js"></script>
+    <script src="/__/firebase/7.21.1/firebase-firestore.js"></script>
     <!-- initialize the SDK after all desired features are loaded -->
     <script src="/__/firebase/init.js"></script>
 
