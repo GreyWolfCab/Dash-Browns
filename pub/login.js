@@ -11,6 +11,10 @@ var userOverlayDivElement = document.getElementsByClassName("user-overlay")[0];
 signInButtonElement.addEventListener("click", login);
 signInButtonElement.addEventListener("click", changeOverlay);
 
+// upload profile pic listener
+var uploadImageFile = document.getElementById("profile-pic-file");
+uploadImageFile.addEventListener("change", uploadProfilePic);
+
 initFirebaseAuth();//upon loading check the auth status of the user
 
 function authStateObserver(user) {
@@ -72,6 +76,7 @@ function collectUserData() {
 
   const fName = document.getElementById("firstName").value;
   const lName = document.getElementById("lastName").value;
+  const profilePicture = uploadImageFile.value;
   const bio = document.getElementById("bio").value;
   const height = document.getElementById("height").value;
   const weight = document.getElementById("weight").value;
@@ -88,11 +93,13 @@ function collectUserData() {
   //TODO validate given user data
 
   //create the new user in firestore
-  createNewUser(fName, lName, bio, height, weight, sex);
+  createNewUser(fName, lName, bio, height, weight, sex, profilePicture);
 
 }
 
-function createNewUser(firstName, lastName, bio, height, weight, sex) {
+function createNewUser(firstName, lastName, bio, height, weight, sex, profilePicture) {
+
+  //TODO store profile pic to firestore
 
   // send to firestore
   firebase.firestore().collection('Users').doc(getUserId()).set({
@@ -132,3 +139,20 @@ function getUserId() {
 function isUserSignedIn() {
   return !!firebase.auth().currentUser;
 }
+
+// displays uploaded profile picture
+function uploadProfilePic() {
+  var imageFile = uploadImageFile.files[0];
+  // check file size
+   if(imageFile.size > (2 * 1024 * 1024)) // 2MB file size limit for a user icon
+   {
+     alert("Image file size cannot exceed 2MB");
+   }
+   // change avatar img src to image user uploaded
+   else 
+   {
+     var profileAvatar = document.getElementById("avatar");
+     // sets avatar image src 
+     profileAvatar.src = URL.createObjectURL(imageFile);
+   }
+ }
