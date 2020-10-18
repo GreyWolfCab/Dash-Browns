@@ -9,11 +9,13 @@ var userOverlayDivElement = document.getElementsByClassName("user-overlay")[0];
 
 //login listener
 signInButtonElement.addEventListener("click", login);
-signInButtonElement.addEventListener("click", changeOverlay);
 
 // upload profile pic listener
 var uploadImageFile = document.getElementById("profile-pic-file");
 uploadImageFile.addEventListener("change", uploadProfilePic);
+
+//firestore references
+const usersReference = firebase.firestore().collection("Users");
 
 initFirebaseAuth();//upon loading check the auth status of the user
 
@@ -23,13 +25,16 @@ function authStateObserver(user) {
 
   if (user) {// User is signed in.
 
-    //TODO: check if the user account already exists in firestore
-    if (true) {//user doesn't exist in firestore
-      userInfoSubmitButton.addEventListener("click", collectUserData);//allows the user to setup their account
-      changeOverlay;
-    } else {//Otherwise: send the user to their profile page
-      window.location.href = "dashboard.html";
-    }
+    //check if the user account already exists in firestore
+    usersReference.doc(user.uid).get()
+    .then(function (docCopy) {
+      if (docCopy.exists) {//send the user to their profile page
+        window.location.href = "dashboard.html";
+      } else {//user doesn't exist in firestore
+        userInfoSubmitButton.addEventListener("click", collectUserData);//allows the user to setup their account
+        changeOverlay;
+      }
+    });
 
   } else {
     // No user is signed in.
