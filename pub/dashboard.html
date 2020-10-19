@@ -19,7 +19,7 @@
                     <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
                     <input class="form-control mr-sm-2" type="search" placeholder="Search User ID" aria-label="Search">
                 </form>    
-                <a id="logout" href = "#">Logout</a>
+                <button id="logout" class="btn btn-lg btn-primary">Logout</button>
             </ul>
         </nav>
 
@@ -84,6 +84,9 @@
                 </div>
             </div> <br>
             <h4>My activities</h4>
+            <ul id="activityList">
+                
+            </ul>
             <div class="activity">
                 <img src="Resources/mscott-ph.png" width="50px" height="50px" style="float: left; margin: 5px 0px 0px 5px">
                 <p id="user-fullname" style="font-size: 15px; font-weight: bolder;">Fname LName<i class="fas fa-dumbbell fa-2x" style="float: right; color:#3CA9E3; margin: 5px 5px 0px 0px;"></i></p>
@@ -93,7 +96,7 @@
                 <div class="toggles">
                     <i class="far fa-heart"></i> <p id="heartCount">0</p>
                     <i class="far fa-comment"></i> <p id="cmtCount">0</p>
-            </div>
+                </div>
             </div>
         </main>
 
@@ -107,6 +110,7 @@
         <script src="/__/firebase/7.21.1/firebase-database.js"></script>
         <script src="/__/firebase/7.21.1/firebase-messaging.js"></script>
         <script src="/__/firebase/7.21.1/firebase-storage.js"></script>
+        <script src="/__/firebase/7.21.1/firebase-firestore.js"></script>
         <!-- initialize the SDK after all desired features are loaded -->
         <script src="/__/firebase/init.js"></script>
         
