@@ -50,26 +50,9 @@
 
         <main class="main">
             <!-- Tabs -->
-            <div class="tab" style="display: grid; grid-template-columns: auto auto auto;">
-                <button class="tablinks" onclick="switchTab(event, 'activity-feed')" id="defaultOpen">Activity Feed</button>
-                <button class="tablinks" onclick="switchTab(event, 'friends-list')">Friends List</button>
+            <div class="tab" style="display: grid; grid-template-columns: auto auto;">
+                <button class="tablinks" onclick="switchTab(event, 'friends-list')" id="defaultOpen">Friends List</button>
                 <button class="tablinks" onclick="switchTab(event, 'pending-friends-list')">Pending Requests</button>
-            </div>
-
-            <!-- Friend's Activity feed -->
-            <div id="activity-feed" class="tabcontent">
-            <h3>Activity Feed</h3>
-                <div class="activity">
-                    <img src="Resources/mscott-ph.png" width="50px" height="50px" style="float: left; margin: 5px 0px 0px 5px">
-                    <p id="user-fullname" style="font-size: 15px; font-weight: bolder;">Fname LName<i class="fas fa-dumbbell fa-2x" style="float: right; color:#3CA9E3; margin: 5px 5px 0px 0px;"></i></p>
-                    <p class="date" style="font-size:10px; color: gray; margin-top: 0em;">Month #, #### at ##:##pm</p>
-                    <img src="Resources/weight-lifting.jpg" alt="activity icon" class="activity-img" width="400px" height="200px">
-                    <p class="caption">image caption here...</p>
-                    <div class="toggles">
-                        <i class="far fa-heart"></i> <p id="heartCount">0</p>
-                        <i class="far fa-comment" style="margin-left: 15px;"></i> <p id="cmtCount">0</p>
-                    </div>
-                </div>
             </div>
 
             <!-- Friend's List -->
