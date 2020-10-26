@@ -9,6 +9,8 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <!-- Custom styles for this template -->
         <link href="style.css" rel="stylesheet">
+        <!-- Font Awesome SVG-->
+        <script src="https://use.fontawesome.com/releases/v5.15.0/js/all.js" data-auto-replace-svg="nest"></script>
     </head>
     <body>
         <nav class = "navbar sticky-top navbar-light bg-light">
@@ -37,7 +39,7 @@
                     <button onclick="location.href='activityfeed.html'" type="button" id="btns" class="btn btn-lg"><i class="fa fa-tasks"></i> Activity Feed</button>
                 </div>
                 <div>
-                    <button onclick="location.href='#'" type="button" id="btns" class="btn btn-lg"><i class="fas fa-user-friends"></i> Friends</button>
+                    <button onclick="location.href='friends.html'" type="button" id="btns" class="btn btn-lg"><i class="fas fa-user-friends"></i> Friends</button>
                 </div>
                 <!--class="row align-items-center" -->
                 <div>
@@ -49,7 +51,31 @@
         </aside>
 
         <main>
-            <h1>activity feed</h1>
+            <div id="activity-feed" class="tabcontent"></div>
+                <h1>activity feed</h1>
+                <div class="activity">
+                    <img src="Resources/mscott-ph.png" width="50px" height="50px" style="float: left; margin: 5px 0px 0px 5px">
+                    <p id="user-fullname" style="font-size: 15px; font-weight: bolder;">Fname LName<i class="fas fa-dumbbell fa-2x" style="float: right; color:#3CA9E3; margin: 5px 5px 0px 0px;"></i></p>
+                    <p class="date" style="font-size:10px; color: gray; margin-top: 0em;">Month #, #### at ##:##pm</p>
+                    <img src="Resources/weight-lifting.jpg" alt="activity icon" class="activity-img" width="600px" height="200px">
+                    <p class="caption">image caption here...</p>
+                    <div class="toggles">
+                        <i class="far fa-heart"></i> <p id="heartCount">0</p>
+                        <i class="far fa-comment" style="margin-left: 15px;"></i> <p id="cmtCount">0</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <img src="Resources/jane-doe.jpg" width="50px" height="50px" style="float: left; margin: 5px 0px 0px 5px">
+                    <p id="user-fullname" style="font-size: 15px; font-weight: bolder;">Fname LName<i class="fas fa-swimmer fa-2x" style="float: right; color:#3CA9E3; margin: 5px 5px 0px 0px;"></i></p>
+                    <p class="date" style="font-size:10px; color: gray; margin-top: 0em;">Month #, #### at ##:##pm</p>
+                    <img src="Resources/swimming-activity.jpg" alt="activity icon" class="activity-img" width="600px" height="200px">
+                    <p class="caption">image caption here...</p>
+                    <div class="toggles">
+                        <i class="far fa-heart"></i> <p id="heartCount">0</p>
+                        <i class="far fa-comment" style="margin-left: 15px;"></i> <p id="cmtCount">0</p>
+                    </div>
+                </div>
+            </div>
         </main>
 
 
