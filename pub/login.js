@@ -32,7 +32,7 @@ function authStateObserver(user) {
         window.location.href = "dashboard.html";
       } else {//user doesn't exist in firestore
         userInfoSubmitButton.addEventListener("click", collectUserData);//allows the user to setup their account
-        changeOverlay;
+        changeOverlay()
       }
     });
 
