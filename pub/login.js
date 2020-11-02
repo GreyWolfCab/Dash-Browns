@@ -114,7 +114,8 @@ function createNewUser(firstName, lastName, bio, height, weight, sex, profilePic
     height: height,
     weight: weight,
     sex: sex,
-    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    FriendsList: []
   }).then(function() {
     //redirect to dashboard upon successful creation
     window.location.href = "dashboard.html";
