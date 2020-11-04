@@ -9,6 +9,8 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <!-- Custom styles for this template -->
         <link href="style.css" rel="stylesheet">
+        <!-- Font Awesome SVG-->
+        <script src="https://use.fontawesome.com/releases/v5.15.0/js/all.js" data-auto-replace-svg="nest"></script>
     </head>
     <body>
         <nav class = "navbar sticky-top navbar-light bg-light">
@@ -22,14 +24,78 @@
         </nav>
 
         <aside class="left-bar">
-            <img src="#">
-            <h1 class="user-name">FirstName LastName</h1>
-            <h1>side</h1>
-            
+            <img src="Resources/mscott-ph.png" width="150px" height="150px">
+            <h2> <p id="user-fullname">FName LName</p> </h2>
+            <div class="user-stats">
+                <p id="user-weight">weight</p>
+                <p id="user-height">height</p>
+                <p id="user-sex">sex</p>
+            </div>
+            <div class="container">
+                <div>
+                    <button onclick="location.href='dashboard.html'" type="button" id="btns" class="btn btn-lg"><i class="fas fa-home"></i> Dashboard</button>
+                </div>
+                <div>
+                    <button onclick="location.href='activityfeed.html'" type="button" id="btns" class="btn btn-lg"><i class="fa fa-tasks"></i> Activity Feed</button>
+                </div>
+                <div>
+                    <button onclick="location.href='friends.html'" type="button" id="btns" class="btn btn-lg"><i class="fas fa-user-friends"></i> Friends</button>
+                </div>
+                <!--class="row align-items-center" -->
+                <div>
+                    <button onclick="location.href='#'" type="button" id="btns" class="btn btn-lg"><i class="fas fa-cog"></i> Settings</button>
+                </div>
+            </div>
         </aside>
 
         <main>
-            <h1>new post</h1>
+            
+            <div class="post-container">
+                <h2>Post an activity</h2>
+
+                <!--List of available activites-->
+
+                <div class="upload-profileimg">
+                    <div class="upload-profile-wrapper">
+                      <button id="upload-btn" class="btn btn-primary btn-sm"><i class="far fa-file-image"></i> Upload Image</button>
+                      <input type="file" accept="image/png" name="profile-pic" id="profile-pic-file"/>
+                    </div>
+                </div>
+
+
+                <div class="post-info-container">
+                    <div class="time-container">
+                      <label for="postTime" style="font-weight: bold;">Time: </label>
+                      <input type="text" id="postTime" class="form-control">
+                    </div>
+                    <div class="distance-container">
+                      <label for="postDistance" style="font-weight: bold;">Distance: </label>
+                      <input type="text" id="postDistance" class="form-control">
+                    </div>
+                    <div class="calories-container">
+                        <label for="postCalories" style="font-weight: bold;">Calories: </label>
+                        <input type="text" id="postCalories" class="form-control">
+                      </div>
+                    <div class="caption-container">
+                        <label for="postCaption" style="font-weight: bold;">Caption: </label>
+                        </br>
+                        <textarea id="postCaption" cols="53" rows="4"></textarea>
+                    </div> 
+
+                    <div class="privacy-toggle">
+                        <label class="switch">
+                            <input type="checkbox">
+                            Public
+                            <span class="slider round"></span>
+                        Private
+                        </label>
+                    </div>
+                    
+                    <!-- <div class="privacy-btn">
+                        <button id="privacy-btn" class="btn btn-sm btn-success btn-block" type="submit" style="width:100px;"> Public</button>
+                    </div> -->
+                </div>
+            </div>
         </main>
 
 
