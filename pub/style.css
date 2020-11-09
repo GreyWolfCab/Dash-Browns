@@ -511,3 +511,16 @@ input:checked + .slider:before {
 .privacy-toggle {
   width: 200px;
 }
+
+.edit-profile-container {
+  background-color: #f1f1f1;
+  padding: 1em 3em;
+  width: 100%;
+}
+
+.edit-profile {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 15px 30px;
+  width: 700px;
+}

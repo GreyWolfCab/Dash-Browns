@@ -25,8 +25,13 @@
         <div class="profile-left-bar">
             <img src="Resources/mscott-ph.png" id="profile-img" style="margin-top: 30px; height: 70%; width: 70%;">
             <h1 class="user-name" id="username">FirstName LastName</h1>
-            <h6 style="margin-top:20px;" id="user-location"> <i class="fas fa-map-marker-alt"></i> LOCATION</h6>
-            <button id="add-friend-btn" class="btn btn-lg btn-primary btn-block" type="submit"> <i class="fas fa-user-plus"></i> Add Friend</button>
+            <div class="add-friend-container">
+                <button id="add-friend-btn" class="btn btn-lg btn-primary btn-block" type="submit"> <i class="fas fa-user-plus"></i> Add Friend</button>
+            </div>
+            <div class="cancel-request-container" style="display: none;">
+                <button id="cancel-request-btn" class="btn btn-lg btn-danger btn-block" type="submit" style="width: 70%; margin: auto; margin-top: 20px;"><i class="fas fa-times"></i> Cancel Request</button>
+            </div>
+            </div>
         </div>
 
         <main>
