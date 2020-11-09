@@ -16,8 +16,8 @@
         <nav class = "navbar sticky-top navbar-light bg-light">
                <a href = "dashboard.html">Dash Browns</a> <!--refresh dashboard-->
                 <form class="form-inline">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search User ID" aria-label="Search">
+                    <button class="btn btn-outline-primary my-2 my-sm-0" id="searchbtn" onclick="searchUser();return false;"><i class="fas fa-search"></i></button>
+                    <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search User ID" aria-label="Search">
                 </form>    
                 <a href = "#">Logout <i class="fas fa-sign-out-alt"></i></a>
         </nav>
@@ -30,18 +30,36 @@
         </div>
 
         <main>
-            <h3>FirstName's latest activities</h3>
-            <div class="activity">
-                <img src="Resources/mscott-ph.png" width="50px" height="50px" style="float: left; margin: 5px 0px 0px 5px">
-                <p id="user-fullname" style="font-size: 15px; font-weight: bolder;">Fname LName<i class="fas fa-dumbbell fa-2x" style="float: right; color:#3CA9E3; margin: 5px 5px 0px 0px;"></i></p>
-                <p class="date" style="font-size:10px; color: gray; margin-top: 0em;">Month #, #### at ##:##pm</p>
-                <img src="Resources/weight-lifting.jpg" alt="activity icon" class="activity-img" width="400px" height="200px">
-                <p class="caption">image caption here...</p>
-                <div class="toggles">
-                    <i class="far fa-heart"></i> <p id="heartCount">0</p>
-                    <i class="far fa-comment" style="margin-left: 15px;"></i> <p id="cmtCount">0</p>
+            <div class="main-container">
+                <h3>FirstName's latest activities</h3>
+                <div class="activity">
+                    <img src="Resources/mscott-ph.png" width="50px" height="50px" style="float: left; margin: 5px 0px 0px 5px">
+                    <p id="user-fullname" style="font-size: 15px; font-weight: bolder;">Fname LName<i class="fas fa-dumbbell fa-2x" style="float: right; color:#3CA9E3; margin: 5px 5px 0px 0px;"></i></p>
+                    <p class="date" style="font-size:10px; color: gray; margin-top: 0em;">Month #, #### at ##:##pm</p>
+                    <img src="Resources/weight-lifting.jpg" alt="activity icon" class="activity-img" width="400px" height="200px">
+                    <p class="caption">image caption here...</p>
+                    <div class="toggles">
+                        <i class="far fa-heart"></i> <p id="heartCount">0</p>
+                        <i class="far fa-comment" style="margin-left: 15px;"></i> <p id="cmtCount">0</p>
+                    </div>
                 </div>
-            </div>
+            </div> 
+        
+        <!-- Search Result List -->
+        <div id="results-list" style="display: none;">
+           <div class="friend">
+               <img class="friend-img" src="Resources/user.png" onclick="location.href='profile.html'"/>
+               <p class="friend-name"  onclick="location.href='profile.html'"> John Doe</p>
+               <div class="friendsbtngroup">
+                   <div class="add-friend-container" style=" margin-right:10px;">
+                       <button id="add-friend-btn" class="btn btn-sm btn-primary btn-block" type="submit" style="width:100px; margin:0;"><i class="fas fa-user-plus"></i> Add</button>
+                   </div>
+                   <div class="cancel-request-container" style="display: none;">
+                       <button id="cancel-request-btn" class="btn btn-sm btn-danger btn-block" type="submit" style="width:140px; margin:0;"><i class="fas fa-times"></i> Cancel Request</button>
+                   </div>
+               </div>
+           </div>
+       </div>  
         </main>
 
 
@@ -75,6 +93,7 @@
           firebase.analytics();
         </script> 
         <script src="main.js"></script> 
+        <script src="search.js"></script> 
     </body>
     
 </html>

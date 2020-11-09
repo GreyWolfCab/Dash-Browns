@@ -10,9 +10,7 @@ cancelRequestContainer.addEventListener("click", cancelFriendRequest);
 function searchUser() {
     var input = document.getElementById("searchInput").value;
     document.getElementById("results-list").style.display = "block";
-    document.getElementsByClassName("activity-header")[0].style.display = 'none';
-    document.getElementsByClassName("activities")[0].style.display = 'none';
-    document.getElementsByClassName("activity-title")[0].style.display = 'none';
+    document.getElementsByClassName("main-container")[0].style.display = 'none';
     
     // TODO: Retrieve user from firebase
 }

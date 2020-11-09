@@ -16,8 +16,8 @@
         <nav class = "navbar sticky-top navbar-light bg-light">
                <a href = "dashboard.html">Dash Browns</a> <!--refresh dashboard-->
                 <form class="form-inline">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search User ID" aria-label="Search">
+                    <button class="btn btn-outline-primary my-2 my-sm-0" id="searchbtn" onclick="searchUser();return false;"><i class="fas fa-search"></i></button>
+                    <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search User ID" aria-label="Search">
                 </form>    
                 <a id="logout" href = "#">Logout</a>
             </ul>
@@ -49,38 +49,56 @@
         </aside>
 
         <main class="main">
-            <!-- Tabs -->
-            <div class="tab" style="display: grid; grid-template-columns: auto auto;">
-                <button class="tablinks" onclick="switchTab(event, 'friends-list')" id="defaultOpen">Friends List</button>
-                <button class="tablinks" onclick="switchTab(event, 'pending-friends-list')">Pending Requests</button>
-            </div>
+            <div class="main-container">
+                <!-- Tabs -->
+                <div class="tab" style="display: grid; grid-template-columns: auto auto;">
+                    <button class="tablinks" onclick="switchTab(event, 'friends-list')" id="defaultOpen">Friends List</button>
+                    <button class="tablinks" onclick="switchTab(event, 'pending-friends-list')">Pending Requests</button>
+                </div>
 
-            <!-- Friend's List -->
-            <div id="friends-list" class="tabcontent">
-                <div class="friend">
-                    <img class="friend-img" src="Resources/user.png"/>
-                    <p class="friend-name"> Jane Doe</p>
-                    <div class="delete-btn">
-                        <button id="delete-friend-btn" class="btn btn-sm btn-danger btn-block" type="submit" style="width:100px;"> <i class="fas fa-user-times"></i> Delete</button>
+                <!-- Friend's List -->
+                <div id="friends-list" class="tabcontent">
+                    <div class="friend">
+                        <img class="friend-img" src="Resources/user.png"/>
+                        <p class="friend-name"> Jane Doe</p>
+                        <div class="delete-btn">
+                            <button id="delete-friend-btn" class="btn btn-sm btn-danger btn-block" type="submit" style="width:100px;"> <i class="fas fa-user-times"></i> Delete</button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Pending Friend's List -->
-            <div id="pending-friends-list" class="tabcontent">
+                <!-- Pending Friend's List -->
+                <div id="pending-friends-list" class="tabcontent">
+                    <div class="friend">
+                        <img class="friend-img" src="Resources/user.png"/>
+                        <p class="friend-name"> John Doe</p>
+                        <div class="friendsbtngroup">
+                            <div class="accept-friend-btn" style=" margin-right:10px;">
+                                <button id="add-friend-btn" class="btn btn-sm btn-success btn-block" type="submit" style="width:100px; margin:0;"> <i class="fas fa-check"></i> Accept</button>
+                            </div>
+                            <div class="deny-friend-btn">
+                                <button id="add-friend-btn" class="btn btn-sm btn-danger btn-block" type="submit" style="width:100px; margin:0;"> <i class="fas fa-times"></i> Deny</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div> 
+        
+             <!-- Search Result List -->
+             <div id="results-list" style="display: none;">
                 <div class="friend">
-                    <img class="friend-img" src="Resources/user.png"/>
-                    <p class="friend-name"> John Doe</p>
+                    <img class="friend-img" src="Resources/user.png" onclick="location.href='profile.html'"/>
+                    <p class="friend-name"  onclick="location.href='profile.html'"> John Doe</p>
                     <div class="friendsbtngroup">
-                        <div class="accept-friend-btn" style=" margin-right:10px;">
-                            <button id="add-friend-btn" class="btn btn-sm btn-success btn-block" type="submit" style="width:100px; margin:0;"> <i class="fas fa-check"></i> Accept</button>
+                        <div class="add-friend-container" style=" margin-right:10px;">
+                            <button id="add-friend-btn" class="btn btn-sm btn-primary btn-block" type="submit" style="width:100px; margin:0;"><i class="fas fa-user-plus"></i> Add</button>
                         </div>
-                        <div class="deny-friend-btn">
-                            <button id="add-friend-btn" class="btn btn-sm btn-danger btn-block" type="submit" style="width:100px; margin:0;"> <i class="fas fa-times"></i> Deny</button>
+                        <div class="cancel-request-container" style="display: none;">
+                            <button id="cancel-request-btn" class="btn btn-sm btn-danger btn-block" type="submit" style="width:140px; margin:0;"><i class="fas fa-times"></i> Cancel Request</button>
                         </div>
                     </div>
                 </div>
-            </div>    
+            </div>  
         </main>
 
         <!-- Import and configure the Firebase SDK -->
@@ -95,7 +113,8 @@
         <!-- initialize the SDK after all desired features are loaded -->
         <script src="/__/firebase/init.js"></script>
         
-        <script src="friends.js"></script> 
+        <script src="friends.js"></script>
+        <script src="search.js"></script>
     </body>
     
 </html>

@@ -16,8 +16,8 @@
         <nav class = "navbar sticky-top navbar-light bg-light">
                <a href = "dashboard.html">Dash Browns</a> <!--refresh dashboard-->
                 <form class="form-inline">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><img class="magnif-glass" src="pub/Resources/magnifying-glass.png" width=10px height =10px></button>
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search User ID" aria-label="Search">
+                    <button class="btn btn-outline-primary my-2 my-sm-0" id="searchbtn" onclick="searchUser();return false;"><i class="fas fa-search"></i></button>
+                    <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search User ID" aria-label="Search">
                 </form>    
                 <a href = "#">Logout</a>
             </ul>
@@ -49,53 +49,70 @@
         </aside>
 
         <main>
-            
-            <div class="post-container">
-                <h2>Post an activity</h2>
+            <div class="main-container"> 
+                <div class="post-container">
+                    <h2>Post an activity</h2>
 
-                <!--List of available activites-->
+                    <!--List of available activites-->
 
-                <div class="upload-profileimg">
-                    <div class="upload-profile-wrapper">
-                      <button id="upload-btn" class="btn btn-primary btn-sm"><i class="far fa-file-image"></i> Upload Image</button>
-                      <input type="file" accept="image/png" name="profile-pic" id="profile-pic-file"/>
+                    <div class="upload-profileimg">
+                        <div class="upload-profile-wrapper">
+                        <button id="upload-btn" class="btn btn-primary btn-sm"><i class="far fa-file-image"></i> Upload Image</button>
+                        <input type="file" accept="image/png" name="profile-pic" id="profile-pic-file"/>
+                        </div>
                     </div>
-                </div>
 
 
-                <div class="post-info-container">
-                    <div class="time-container">
-                      <label for="postTime" style="font-weight: bold;">Time: </label>
-                      <input type="text" id="postTime" class="form-control">
-                    </div>
-                    <div class="distance-container">
-                      <label for="postDistance" style="font-weight: bold;">Distance: </label>
-                      <input type="text" id="postDistance" class="form-control">
-                    </div>
-                    <div class="calories-container">
-                        <label for="postCalories" style="font-weight: bold;">Calories: </label>
-                        <input type="text" id="postCalories" class="form-control">
-                      </div>
-                    <div class="caption-container">
-                        <label for="postCaption" style="font-weight: bold;">Caption: </label>
-                        </br>
-                        <textarea id="postCaption" cols="53" rows="4"></textarea>
-                    </div> 
+                    <div class="post-info-container">
+                        <div class="time-container">
+                        <label for="postTime" style="font-weight: bold;">Time: </label>
+                        <input type="text" id="postTime" class="form-control">
+                        </div>
+                        <div class="distance-container">
+                        <label for="postDistance" style="font-weight: bold;">Distance: </label>
+                        <input type="text" id="postDistance" class="form-control">
+                        </div>
+                        <div class="calories-container">
+                            <label for="postCalories" style="font-weight: bold;">Calories: </label>
+                            <input type="text" id="postCalories" class="form-control">
+                        </div>
+                        <div class="caption-container">
+                            <label for="postCaption" style="font-weight: bold;">Caption: </label>
+                            </br>
+                            <textarea id="postCaption" cols="53" rows="4"></textarea>
+                        </div> 
 
-                    <div class="privacy-toggle">
-                        <label class="switch">
-                            <input type="checkbox">
-                            Public
-                            <span class="slider round"></span>
-                        Private
-                        </label>
+                        <div class="privacy-toggle">
+                            <label class="switch">
+                                <input type="checkbox">
+                                Public
+                                <span class="slider round"></span>
+                            Private
+                            </label>
+                        </div>
+                        
+                        <!-- <div class="privacy-btn">
+                            <button id="privacy-btn" class="btn btn-sm btn-success btn-block" type="submit" style="width:100px;"> Public</button>
+                        </div> -->
                     </div>
-                    
-                    <!-- <div class="privacy-btn">
-                        <button id="privacy-btn" class="btn btn-sm btn-success btn-block" type="submit" style="width:100px;"> Public</button>
-                    </div> -->
                 </div>
             </div>
+
+            <!-- Search Result List -->
+            <div id="results-list" style="display: none;">
+                <div class="friend">
+                    <img class="friend-img" src="Resources/user.png" onclick="location.href='profile.html'"/>
+                    <p class="friend-name"  onclick="location.href='profile.html'"> John Doe</p>
+                    <div class="friendsbtngroup">
+                        <div class="add-friend-container" style=" margin-right:10px;">
+                            <button id="add-friend-btn" class="btn btn-sm btn-primary btn-block" type="submit" style="width:100px; margin:0;"><i class="fas fa-user-plus"></i> Add</button>
+                        </div>
+                        <div class="cancel-request-container" style="display: none;">
+                            <button id="cancel-request-btn" class="btn btn-sm btn-danger btn-block" type="submit" style="width:140px; margin:0;"><i class="fas fa-times"></i> Cancel Request</button>
+                        </div>
+                    </div>
+                </div>
+            </div>  
         </main>
 
 
@@ -129,6 +146,7 @@
       firebase.analytics();
     </script> 
     <script src="main.js"></script> 
+    <script src="search.js"></script>
     </body>
     
 </html>
