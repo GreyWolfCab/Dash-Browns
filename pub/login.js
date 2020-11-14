@@ -79,13 +79,17 @@ function changeOverlay() {
 
 function collectUserData() {
 
-  const fName = document.getElementById("firstName").value;
-  const lName = document.getElementById("lastName").value;
+  const tempfName = document.getElementById("firstName").value;
+  const fName = tempfName.charAt(0).toUpperCase() + tempfName.slice(1).toLowerCase();
+  const templName = document.getElementById("lastName").value;
+  const lName = templName.charAt(0).toUpperCase() + templName.slice(1).toLowerCase();
+  const fullName = fName.toLowerCase() + " " + lName.toLowerCase();
   const profilePicture = uploadImageFile.value;
   const bio = document.getElementById("bio").value;
   const height = document.getElementById("height").value;
   const weight = document.getElementById("weight").value;
   const gender = document.getElementsByName("gender");
+  const id = getUserId();
   var sex = 3;
   // get the value of the selected radio button
   for(var i = 0; i < gender.length; i++) {
@@ -98,11 +102,11 @@ function collectUserData() {
   //TODO validate given user data
 
   //create the new user in firestore
-  createNewUser(fName, lName, bio, height, weight, sex, profilePicture);
+  createNewUser(fName, lName, fullName, bio, height, weight, id, sex, profilePicture);
 
 }
 
-function createNewUser(firstName, lastName, bio, height, weight, sex, profilePicture) {
+function createNewUser(firstName, lastName, fullName, bio, height, weight, id, sex, profilePicture) {
 
   //TODO store profile pic to firestore
 
@@ -110,9 +114,11 @@ function createNewUser(firstName, lastName, bio, height, weight, sex, profilePic
   firebase.firestore().collection('Users').doc(getUserId()).set({
     firstname: firstName,
     lastname: lastName,
+    fullname: fullName,
     bio: bio,
     height: height,
     weight: weight,
+    id: id,
     sex: sex,
     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     FriendsList: []
