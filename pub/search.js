@@ -1,6 +1,9 @@
 // get add & cancel request div elements
 var addButtonContainer = document.getElementsByClassName("add-friend-container")[0];
 var cancelRequestContainer = document.getElementsByClassName("cancel-request-container")[0];
+var searchUserNameElement = document.getElementById("friend-name");
+var friendDivElement = document.getElementsByClassName("friend")[0];
+
 
 // event listener for add & cancel request
 addButtonContainer.addEventListener("click", addFriend);
@@ -8,11 +11,37 @@ cancelRequestContainer.addEventListener("click", cancelFriendRequest);
 
 // search users 
 function searchUser() {
+
     var input = document.getElementById("searchInput").value;
+    var friendFound = 0; // using as a boolean
+
+    usersReference.where('fullname', '==', input.toLowerCase()).get()
+    .then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+
+        if(doc.data().id === getUserId()){
+          friendDivElement.style.visibility = "hidden";
+        }
+        else{
+          friendDivElement.style.visibility = "visible";
+          console.log(doc.data().firstname, " => ", doc.data().id);
+          console.log(getUserId());
+          var dispName = doc.data().firstname + " " + doc.data().lastname;
+          searchUserNameElement.textContent = dispName;
+          friendFound = 1;  // friend is found, true
+        }
+      });
+      if(friendFound === 0){  // friend is not found, false
+        friendDivElement.style.visibility = "hidden";
+      }
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+
     document.getElementById("results-list").style.display = "block";
     document.getElementsByClassName("main-container")[0].style.display = 'none';
     
-    // TODO: Retrieve user from firebase
 }
 
 // change add button to cancel request
