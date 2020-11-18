@@ -311,8 +311,11 @@ input[type="radio"] {
   height: auto;
 }
 .activities {
-  width: 100%;
+  /* width: 100%; */
   height: auto;
+  width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 /* USER PROFILE */
