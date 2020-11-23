@@ -5,7 +5,7 @@ var signInButtonElement = document.getElementById("login");
 var userInfoSubmitButton = document.getElementById("user-info-submit");
 
 //Overlay for creating new users
-var userOverlayDivElement = document.getElementsByClassName("user-overlay")[0];
+var userOverlayDivElement = document.getElementsByClassName("input-overlay")[0];
 
 //login listener
 signInButtonElement.addEventListener("click", login);
@@ -72,7 +72,6 @@ function changeOverlay() {
       userOverlayDivElement.style.display = "block";
   } else {
       userOverlayDivElement.style.display = "none";
-
   }
 
 }

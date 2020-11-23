@@ -50,88 +50,77 @@
 
         <main class="main">
             <div class="main-container">
-            <div class="activity-header">
-                <h4>Hey <p id="firstName">FName!</p></h4>
-                <h4>What are you up to today?</h4> <br>
-            </div>
-            <div class="activities">
-                <button onclick="location.href='post.html'" type="button" id="weight-lifting-act">
-                    <div class="item" style="height: 100px; vertical-align: bottom; height: 110px;"> 
-                    <i class="fas fa-dumbbell fa-2x"></i>
-                    <p style="font-size: 12px;">Weight Lifting</p> 
-                    </div>
-                </button>
-                <button onclick="location.href='post.html'" type="button" id="running-act">
-                    <div class="item">
-                        <i class="fas fa-running fa-2x"></i>
-                        <p>Running</p>
-                    </div>
-                </button>
-                <button onclick="location.href='post.html'" type="button" id="hiking-act">
-                <div class="item">
-                    <i class="fas fa-hiking fa-2x"></i>
-                    <p>Hiking</p>
+
+                <div class="input-overlay" style="display: none;">
                 </div>
-                </button>
-                <button onclick="location.href='post.html'" type="button" id="biking-act">
-                    <div class="item">
-                        <i class="fas fa-biking fa-2x"></i>
-                        <p>Biking</p>
-                    </div>
-                </button>
-                <button onclick="location.href='post.html'" type="button" id="swimming-act">
-                    <div class="item">
-                        <i class="fas fa-swimmer fa-2x"></i>
-                        <p>Swimming</p>
-                    </div>
-                </button>
-                <button onclick="location.href='post.html'" type="button" id="walking-act">
-                    <div class="item">
-                        <i class="fas fa-walking fa-2x"></i>
-                        <p>Walking</p>
-                    </div>
-                </button>
-                <button onclick="location.href='post.html'" type="button" id="cardio-act">
-                    <div class="item">
-                        <i class="fas fa-heartbeat fa-2x"></i>
-                        <p>Cardio</p>
-                    </div>
-                </button>
-            </div> <br>
-            <div class="activity-title">
-                <h4>My activities</h4>
-            </div>
-            <ul id="activityList">
-                
-            </ul>
-            <!-- <div class="activity">
-                <img src="Resources/mscott-ph.png" width="50px" height="50px" style="float: left; margin: 5px 0px 0px 5px">
-                <p id="user-fullname" style="font-size: 15px; font-weight: bolder;">Fname LName<i class="fas fa-dumbbell fa-2x" style="float: right; color:#3CA9E3; margin: 5px 5px 0px 0px;"></i></p>
-                <p class="date" style="font-size:10px; color: gray; margin-top: 0em;">Month #, #### at ##:##pm</p>
-                <img src="Resources/weight-lifting.jpg" alt="activity icon" class="activity-img" width="400px" height="200px">
-                <p class="caption">image caption here...</p>
-                <div class="toggles">
-                    <i class="far fa-heart"></i> <p id="heartCount">0</p>
-                    <i class="far fa-comment"></i> <p id="cmtCount">0</p>
+
+                <div class="activity-header">
+                    <h4>Hey <p id="firstName">FName!</p></h4>
+                    <h4>What are you up to today?</h4> <br>
                 </div>
-            </div> -->
-            </div>
-            
-            <!-- Search Result List -->
-            <div id="results-list" style="display: none;">
-                <div class="friend">
-                    <img class="friend-img" src="Resources/user.png" onclick="location.href='profile.html'"/>
-                    <p id="friend-name"  onclick="location.href='profile.html'"> John Doe</p>
-                    <div class="friendsbtngroup">
-                        <div class="add-friend-container" style=" margin-right:10px;">
-                            <button id="add-friend-btn" class="btn btn-sm btn-primary btn-block" type="submit" style="width:100px; margin:0;"><i class="fas fa-user-plus"></i> Add</button>
+                <div class="activities">
+                    <button type="button" id="weight-lifting-act">
+                        <div class="item" style="height: 100px; vertical-align: bottom; height: 110px;"> 
+                        <i class="fas fa-dumbbell fa-2x"></i>
+                        <p style="font-size: 12px;">Weight Lifting</p> 
                         </div>
-                        <div class="cancel-request-container" style="display: none;">
-                            <button id="cancel-request-btn" class="btn btn-sm btn-danger btn-block" type="submit" style="width:140px; margin:0;"><i class="fas fa-times"></i> Cancel Request</button>
+                    </button>
+                    <button type="button" id="running-act">
+                        <div class="item">
+                            <i class="fas fa-running fa-2x"></i>
+                            <p>Running</p>
+                        </div>
+                    </button>
+                    <button type="button" id="hiking-act">
+                    <div class="item">
+                        <i class="fas fa-hiking fa-2x"></i>
+                        <p>Hiking</p>
+                    </div>
+                    </button>
+                    <button type="button" id="biking-act">
+                        <div class="item">
+                            <i class="fas fa-biking fa-2x"></i>
+                            <p>Biking</p>
+                        </div>
+                    </button>
+                    <button type="button" id="swimming-act">
+                        <div class="item">
+                            <i class="fas fa-swimmer fa-2x"></i>
+                            <p>Swimming</p>
+                        </div>
+                    </button>
+                    <button type="button" id="walking-act">
+                        <div class="item">
+                            <i class="fas fa-walking fa-2x"></i>
+                            <p>Walking</p>
+                        </div>
+                    </button>
+                </div> <br>
+                <div class="activity-title">
+                    <h4>My activities</h4>
+                </div>
+                <div class="activity-list">
+                    <ul id="activityList">
+                        
+                    </ul>
+                </div>
+        
+                <!-- Search Result List -->
+                <div id="results-list" style="display: none;">
+                    <div class="friend">
+                        <img class="friend-img" src="Resources/user.png" onclick="location.href='profile.html'"/>
+                        <p id="friend-name"  onclick="location.href='profile.html'"> John Doe</p>
+                        <div class="friendsbtngroup">
+                            <div class="add-friend-container" style=" margin-right:10px;">
+                                <button id="add-friend-btn" class="btn btn-sm btn-primary btn-block" type="submit" style="width:100px; margin:0;"><i class="fas fa-user-plus"></i> Add</button>
+                            </div>
+                            <div class="cancel-request-container" style="display: none;">
+                                <button id="cancel-request-btn" class="btn btn-sm btn-danger btn-block" type="submit" style="width:140px; margin:0;"><i class="fas fa-times"></i> Cancel Request</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>  
+                </div>     
+            </div>
         </main>
 
 

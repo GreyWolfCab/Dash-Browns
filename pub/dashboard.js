@@ -10,6 +10,47 @@ var userHeightElement = document.getElementById("user-height");
 var userSexElement = document.getElementById("user-sex");
 var userGreetingElement = document.getElementById("firstName");
 
+//activity elements
+var activityOverlayDivElement = document.getElementsByClassName("input-overlay")[0];
+
+var weightLiftingButton = document.getElementById("weight-lifting-act");
+var swimmingButton = document.getElementById("swimming-act");
+var runningButton = document.getElementById("running-act");
+var hikingButton = document.getElementById("hiking-act");
+var bikingButton = document.getElementById("biking-act");
+var walkingButton = document.getElementById("walking-act");
+
+weightLiftingButton.addEventListener("click", function() {
+  postActivity("weightLifting");
+});
+
+swimmingButton.addEventListener("click", function() {
+  postActivity("swimming");
+});
+
+runningButton.addEventListener("click", function() {
+  postActivity("running");
+});
+
+hikingButton.addEventListener("click", function() {
+  postActivity("hiking");
+});
+
+bikingButton.addEventListener("click", function() {
+  postActivity("biking");
+});
+
+walkingButton.addEventListener("click", function() {
+  postActivity("walking");
+});
+
+//exit out of activity overlay
+document.addEventListener("click", function(event) {
+  if (event.target.getAttribute("class") == "input-overlay") {
+    changeOverlay();
+  }
+});
+
 //login listener
 signInButtonElement.addEventListener("click", signOut);
 
@@ -128,6 +169,108 @@ function Activity(title, userId, userName, type, likes, isPrivate, date) {
   this.likes = likes;
   this.isPrivate = isPrivate;
   this.date = date;
+
+}
+
+let cardioActivityHTML = '<div class="time-container">' +
+                          '<label for="postTime" style="font-weight: bold;">Time: </label>' +
+                          '<input type="text" id="postTime" class="form-control">' +
+                        '</div>' +
+                        '<div class="distance-container">' +
+                          '<label for="postDistance" style="font-weight: bold;">Distance: </label>' +
+                          '<input type="text" id="postDistance" class="form-control">' +
+                        '</div>' +
+                        '<div class="calories-container">' +
+                          '<label for="postCalories" style="font-weight: bold;">Calories: </label>' +
+                          '<input type="text" id="postCalories" class="form-control">' +
+                        '</div>';
+
+let weightActivityHTML = '<div class="title-container">' +
+                          '<label for="postTitle" style="font-weight: bold;">Title: </label>' +
+                          '<input type="text" id="postTitle" class="form-control">' +
+                        '</div>' +
+                        '<div class="sets-container">' +
+                          '<label for="postSets" style="font-weight: bold;">Sets: </label>' +
+                          '<input type="text" id="postSets" class="form-control">' +
+                        '</div>' +
+                        '<div class="reps-container">' +
+                          '<label for="postReps" style="font-weight: bold;">Reps: </label>' +
+                          '<input type="text" id="postReps" class="form-control">' +
+                        '</div>';
+
+let swimmingActivityHTML = '<div class="time-container">' +
+                          '<label for="postTime" style="font-weight: bold;">Time: </label>' +
+                          '<input type="text" id="postTime" class="form-control">' +
+                        '</div>' +
+                        '<div class="laps-container">' +
+                          '<label for="postLaps" style="font-weight: bold;">Laps: </label>' +
+                          '<input type="text" id="postLaps" class="form-control">' +
+                        '</div>' +
+                        '<div class="distance-container">' +
+                          '<label for="postDistance" style="font-weight: bold;">Distance: </label>' +
+                          '<input type="text" id="postDistance" class="form-control">' +
+                        '</div>';
+
+function changeOverlay() {
+  if (activityOverlayDivElement.style.display === "none") {
+      activityOverlayDivElement.style.display = "block";
+  } else {
+      activityOverlayDivElement.style.display = "none";
+  }
+}
+
+function postActivity(type) {
+
+  let activityHTML;
+  switch(type) {
+    case "weightLifting": activityHTML = weightActivityHTML;
+                          break;
+    case "swimming":  activityHTML = swimmingActivityHTML;
+                      break;
+    case "running":
+    case "hiking":
+    case "biking":
+    case "walking":
+    default:  activityHTML = cardioActivityHTML;
+              break;
+
+  }
+
+  var div = document.createElement("div");
+  div.setAttribute("class", "post-container");
+
+  div.innerHTML = "<h2>Post an activity</h2>" +
+                    '<div class="upload-profileimg">' +
+                      '<div class="upload-profile-wrapper">' +
+                      '<button id="upload-btn" class="btn btn-primary btn-sm"><i class="far fa-file-image"></i> Upload Image</button>' +
+                      '<input type="file" accept="image/png" name="profile-pic" id="profile-pic-file"/>' +
+                      '</div>' +
+                    '</div>' +
+                    '<div class="post-info-container">' +
+                        activityHTML +
+                        '<div class="caption-container">' +
+                            '<label for="postCaption" style="font-weight: bold;">Caption: </label>' +
+                            '</br>' +
+                            '<textarea id="postCaption" cols="50%" rows="4"></textarea>' +
+                        '</div>' +
+
+                        '<div class="privacy-toggle">' +
+                            '<label class="switch">' +
+                                '<input type="checkbox">' +
+                                'Public' +
+                                '<span class="slider round"></span>' +
+                            'Private' +
+                            '</label>' +
+                        '</div>' +
+                        
+                        '<div class="post-button">' +
+                            '<button type="button" id="btns" id="post-act-btn" style="width: 250px; margin-top: 0em; float:right;" class="btn btn-lg btn-success"> Post</button>' +
+                        '</div>' +
+                    '</div>';
+
+  activityOverlayDivElement.innerHTML = "";
+  activityOverlayDivElement.appendChild(div);
+  changeOverlay();
 
 }
 

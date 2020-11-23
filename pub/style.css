@@ -8,7 +8,7 @@ body  */{
 }
 
 /* generate opacity for new category prompt */
-.user-overlay {
+.input-overlay {
   position: fixed;
   /* Sit on top of the page content */
   display: none;
@@ -442,7 +442,9 @@ input[type="radio"] {
 .post-container {
   background-color: #f1f1f1;
   padding: 1em 3em;
-  width: 100%;
+  margin: auto;
+  margin-top: 80px;
+  width: 80%;
   height: 650px;
 }
 
