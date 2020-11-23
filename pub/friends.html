@@ -24,8 +24,8 @@
         </nav>
 
         <aside class="left-bar">
-            <img src="Resources/mscott-ph.png" width="150px" height="150px">
-            <h2> <p id="user-fullname">FName LName</p> </h2>
+            <button onclick="location.href='profile.html'" type="button"><img src="Resources/mscott-ph.png" width="150px" height="150px">
+            <h2> <p id="user-fullname">FName LName</p> </h2></button>
             <div class="user-stats">
                 <p id="user-weight">weight</p>
                 <p id="user-height">height</p>
@@ -74,15 +74,14 @@
                         <p class="friend-name"> John Doe</p>
                         <div class="friendsbtngroup">
                             <div class="accept-friend-btn" style=" margin-right:10px;">
-                                <button id="add-friend-btn" class="btn btn-sm btn-success btn-block" type="submit" style="width:100px; margin:0;"> <i class="fas fa-check"></i> Accept</button>
+                                <button id="accept-friend-btn" class="btn btn-sm btn-success btn-block" type="submit" style="width:100px; margin:0;"> <i class="fas fa-check"></i> Accept</button>
                             </div>
-                            <div class="deny-friend-btn">
-                                <button id="add-friend-btn" class="btn btn-sm btn-danger btn-block" type="submit" style="width:100px; margin:0;"> <i class="fas fa-times"></i> Deny</button>
+                            <div class="decline-friend-btn">
+                                <button id="decline-friend-btn" class="btn btn-sm btn-danger btn-block" type="submit" style="width:100px; margin:0;"> <i class="fas fa-times"></i> Decline</button>
                             </div>
                         </div>
                     </div>
                 </div> 
-            </div> 
         
              <!-- Search Result List -->
              <div id="results-list" style="display: none;">
