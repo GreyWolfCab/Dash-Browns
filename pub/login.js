@@ -24,7 +24,7 @@ function authStateObserver(user) {
   user = firebase.auth().currentUser;//authentication observer that holds user details
 
   if (user) {// User is signed in.
-
+    
     //check if the user account already exists in firestore
     usersReference.doc(user.uid).get()
     .then(function (docCopy) {
@@ -78,17 +78,39 @@ function changeOverlay() {
 
 function collectUserData() {
 
-  const tempfName = document.getElementById("firstName").value;
-  const fName = tempfName.charAt(0).toUpperCase() + tempfName.slice(1).toLowerCase();
-  const templName = document.getElementById("lastName").value;
-  const lName = templName.charAt(0).toUpperCase() + templName.slice(1).toLowerCase();
+  const id = getUserId();
+  let fName = "";
+  let lName = "";
+
+  if (document.getElementById("firstName").value !== "") {
+    const tempfName = document.getElementById("firstName").value;
+    fName = tempfName.charAt(0).toUpperCase() + tempfName.slice(1).toLowerCase();
+  }
+
+  if (document.getElementById("lastName").value !== "") {
+    const templName = document.getElementById("lastName").value;
+    lName = templName.charAt(0).toUpperCase() + templName.slice(1).toLowerCase();
+  }
+
   const fullName = fName.toLowerCase() + " " + lName.toLowerCase();
   const profilePicture = uploadImageFile.value;
-  const bio = document.getElementById("bio").value;
-  const height = document.getElementById("height").value;
-  const weight = document.getElementById("weight").value;
+  let bio = "";
+  let height = "";
+  let weight = "";
+
+  if (document.getElementById("bio").value !== "") {
+    bio = document.getElementById("bio").value;
+  }
+
+  if (document.getElementById("height").value !== "") {
+    height = document.getElementById("height").value;
+  }
+
+  if (document.getElementById("weight").value !== "") {
+    weight = document.getElementById("weight").value;
+  }
+
   const gender = document.getElementsByName("gender");
-  const id = getUserId();
   var sex = 3;
   // get the value of the selected radio button
   for(var i = 0; i < gender.length; i++) {
@@ -97,8 +119,6 @@ function collectUserData() {
       sex = gender[i].value;
     }
   }
-
-  //TODO validate given user data
 
   //create the new user in firestore
   createNewUser(fName, lName, fullName, bio, height, weight, id, sex, profilePicture);
