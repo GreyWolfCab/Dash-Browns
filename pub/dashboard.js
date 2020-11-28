@@ -92,7 +92,7 @@ function htmlActivity(activity) {
                     '<p id="user-fullname" style="font-size: 15px; font-weight: bolder;">' + activity.userName + '<i class="fas fa-dumbbell fa-2x" style="float: right; color:#3CA9E3; margin: 5px 5px 0px 0px;"></i></p>' +
                     '<p class="date" style="font-size:10px; color: gray; margin-top: 0em;">' + activity.date.toDate() + '</p>'+
                     '<img src="Resources/weight-lifting.jpg" alt="activity icon" class="activity-img" width="400px" height="200px">' +
-                    '<p class="caption">' + activity.title + '</p>' +
+                    '<p class="caption"><b>' + activity.type + ': </b>' + activity.caption + '</p>' +
                     '<div class="toggles">' +
                       '<i class="far fa-heart"></i> <p id="heartCount">' + activity.likes + '</p>' +
                       '<i class="far fa-comment"></i> <p id="cmtCount">0</p>' +
@@ -125,12 +125,16 @@ function loadUserActivities() {
     console.log("Error getting user name");
   });
 
+  //empty activities list
+  document.getElementById("activityList").innerHTML = "";
+  activitiesList = [];
+
   //get the data from every activity associated with the current user
   usersReference.doc(getUserId()).collection("Activities").get()
   .then(function (querySnapshot) {
     querySnapshot.forEach(function(doc) {//go through every activity belonging to the user
       //add each user activity to a list
-      activitiesList.push(new Activity(doc.data().title, getUserId(), userName, doc.data().type, doc.data().likes, doc.data().isPrivate, doc.data().date));
+      activitiesList.push(new Activity(doc.data().caption, getUserId(), userName, doc.data().type, doc.data().likes, doc.data().isPrivate, doc.data().date));
     });
     drawActivities();//draw every activity in html for the user
   }).catch(function (error) {
@@ -160,9 +164,9 @@ function getUserInfo() {
 }
 
 //store a user's activity to easily access it, based on firestore collection of activities
-function Activity(title, userId, userName, type, likes, isPrivate, date) {
+function Activity(caption, userId, userName, type, likes, isPrivate, date) {
 
-  this.title = title;
+  this.caption = caption;
   this.userId = userId;
   this.userName = userName;
   this.type = type;
@@ -173,11 +177,11 @@ function Activity(title, userId, userName, type, likes, isPrivate, date) {
 }
 
 let cardioActivityHTML = '<div class="time-container">' +
-                          '<label for="postTime" style="font-weight: bold;">Time: </label>' +
+                          '<label for="postTime" style="font-weight: bold;">Time: (Minutes)</label>' +
                           '<input type="text" id="postTime" class="form-control">' +
                         '</div>' +
                         '<div class="distance-container">' +
-                          '<label for="postDistance" style="font-weight: bold;">Distance: </label>' +
+                          '<label for="postDistance" style="font-weight: bold;">Distance: (Miles)</label>' +
                           '<input type="text" id="postDistance" class="form-control">' +
                         '</div>' +
                         '<div class="calories-container">' +
@@ -191,23 +195,23 @@ let weightActivityHTML = '<div class="title-container">' +
                         '</div>' +
                         '<div class="sets-container">' +
                           '<label for="postSets" style="font-weight: bold;">Sets: </label>' +
-                          '<input type="text" id="postSets" class="form-control">' +
+                          '<input type="number" id="postSets" class="form-control">' +
                         '</div>' +
                         '<div class="reps-container">' +
                           '<label for="postReps" style="font-weight: bold;">Reps: </label>' +
-                          '<input type="text" id="postReps" class="form-control">' +
+                          '<input type="number" id="postReps" class="form-control">' +
                         '</div>';
 
 let swimmingActivityHTML = '<div class="time-container">' +
-                          '<label for="postTime" style="font-weight: bold;">Time: </label>' +
+                          '<label for="postTime" style="font-weight: bold;">Time: (Minutes)</label>' +
                           '<input type="text" id="postTime" class="form-control">' +
                         '</div>' +
                         '<div class="laps-container">' +
                           '<label for="postLaps" style="font-weight: bold;">Laps: </label>' +
-                          '<input type="text" id="postLaps" class="form-control">' +
+                          '<input type="number" id="postLaps" class="form-control">' +
                         '</div>' +
                         '<div class="distance-container">' +
-                          '<label for="postDistance" style="font-weight: bold;">Distance: </label>' +
+                          '<label for="postDistance" style="font-weight: bold;">Distance: (Miles)</label>' +
                           '<input type="text" id="postDistance" class="form-control">' +
                         '</div>';
 
@@ -237,6 +241,7 @@ function postActivity(type) {
   }
 
   var div = document.createElement("div");
+  div.setAttribute("id", type);
   div.setAttribute("class", "post-container");
 
   div.innerHTML = "<h2>Post an activity</h2>" +
@@ -256,7 +261,7 @@ function postActivity(type) {
 
                         '<div class="privacy-toggle">' +
                             '<label class="switch">' +
-                                '<input type="checkbox">' +
+                                '<input id="postPrivate" type="checkbox">' +
                                 'Public' +
                                 '<span class="slider round"></span>' +
                             'Private' +
@@ -264,13 +269,101 @@ function postActivity(type) {
                         '</div>' +
                         
                         '<div class="post-button">' +
-                            '<button type="button" id="btns" id="post-act-btn" style="width: 250px; margin-top: 0em; float:right;" class="btn btn-lg btn-success"> Post</button>' +
+                            '<button onClick="collectActivityData()" type="button" id="btns" id="post-act-btn" style="width: 250px; margin-top: 0em; float:right;" class="btn btn-lg btn-success"> Post</button>' +
                         '</div>' +
                     '</div>';
 
   activityOverlayDivElement.innerHTML = "";
   activityOverlayDivElement.appendChild(div);
   changeOverlay();
+
+}
+
+function collectActivityData() {
+
+  let type = document.getElementsByClassName("post-container")[0].getAttribute("id");
+  let caption = document.getElementById("postCaption").value;
+  let isPrivate = document.getElementById("postPrivate").checked;
+
+  if (document.getElementById("postLaps") !== null) {
+    let postTime = document.getElementById("postTime").value;
+    let postLaps = document.getElementById("postLaps").value;
+    let postDistance = document.getElementById("postDistance").value;
+    createSwimActivity(type, postTime, postLaps, postDistance, caption, isPrivate);
+  } else if (document.getElementById("postTime") !== null) {
+    let postTime = document.getElementById("postTime").value;
+    let postDistance = document.getElementById("postDistance").value;
+    let postCalories = document.getElementById("postCalories").value;
+    createCardioActivity(type, postTime, postDistance, postCalories, caption, isPrivate);
+  } else if (document.getElementById("postSets") !== null) {
+    let postTitle = document.getElementById("postTitle").value;
+    let postSets = document.getElementById("postSets").value;
+    let postReps = document.getElementById("postReps").value;
+    createWeigthActivity(type, postTitle, postSets, postReps, caption, isPrivate);
+  }
+
+}
+
+function createWeigthActivity(type, postTitle, postSets, postReps, caption, isPrivate) {
+
+  // send to firestore
+  firebase.firestore().collection('Users').doc(getUserId()).collection('Activities').add({
+    type: type,
+    title: postTitle,
+    sets: postSets,
+    reps: postReps,
+    caption: caption,
+    isPrivate: isPrivate,
+    likes: 0,
+    date: firebase.firestore.FieldValue.serverTimestamp()
+  }).then(function() {
+    loadUserActivities();
+    changeOverlay();
+  }).catch(function(error) {
+    console.error('Error writing new activity to firestore', error);
+  });
+
+}
+
+function createCardioActivity(type, postTime, postDistance, postCalories, caption, isPrivate) {
+
+  // send to firestore
+  firebase.firestore().collection('Users').doc(getUserId()).collection('Activities').add({
+    type: type,
+    time: postTime,
+    calories: postCalories,
+    distance: postDistance,
+    caption: caption,
+    isPrivate: isPrivate,
+    likes: 0,
+    date: firebase.firestore.FieldValue.serverTimestamp()
+  }).then(function() {
+    loadUserActivities();
+    changeOverlay();
+  }).catch(function(error) {
+    console.error('Error writing new activity to firestore', error);
+  });
+
+}
+
+function createSwimActivity(type, postTime, postLaps, postDistance, caption, isPrivate) {
+  
+  // send to firestore
+  firebase.firestore().collection('Users').doc(getUserId()).collection('Activities').add({
+    type: type,
+    time: postTime,
+    laps: postLaps,
+    distance: postDistance,
+    caption: caption,
+    isPrivate: isPrivate,
+    likes: 0,
+    date: firebase.firestore.FieldValue.serverTimestamp()
+  }).then(function() {
+    loadUserActivities();
+    changeOverlay();
+  }).catch(function(error) {
+    console.error('Error writing new activity to firestore', error);
+  });
 
 }
 
