@@ -439,6 +439,14 @@ input[type="radio"] {
   padding: 0%;
 }
 
+#activityList {
+  list-style-type: none;
+}
+
+#activityList li {
+  margin-bottom: 50px;
+}
+
 .post-container {
   background-color: #f1f1f1;
   padding: 1em 3em;
