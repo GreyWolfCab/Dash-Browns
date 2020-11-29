@@ -58,6 +58,11 @@ signInButtonElement.addEventListener("click", signOut);
 const usersReference = firebase.firestore().collection("Users");
 const activitiesReference = firebase.firestore().collection("Activities");
 
+//firebase storage references
+const storageRef = firebase.storage().ref();
+
+let profilePictureUrl = null;
+
 initFirebaseAuth();//upon loading check the auth status of the user
 
 var activitiesList = [];//empty list of user activities
@@ -69,6 +74,7 @@ function authStateObserver(user) {
   if (user) {//user successfully logged in
 
     getUserInfo();
+    loadProfilePicture();
     loadUserActivities();
 
   } else {
@@ -86,13 +92,37 @@ function authStateObserver(user) {
  */
 function htmlActivity(activity) {
   
-  var li = document.createElement("li");
+  let iHTML;
+  switch(activity.type) {
+    case "weightLifting": 
+      iHTML = '<i class="fas fa-dumbbell fa-2x"></i>';
+      break;
+    case "swimming":  
+      iHTML = '<i class="fas fa-swimmer fa-2x"></i>';
+      break;
+    case "running":
+      iHTML = '<i class="fas fa-running fa-2x"></i>';
+      break;
+    case "hiking":
+      iHTML = '<i class="fas fa-hiking fa-2x"></i>';
+      break;
+    case "biking":
+      iHTML = '<i class="fas fa-biking fa-2x"></i>';
+      break;
+    case "walking":
+    default:
+      iHTML = '<i class="fas fa-walking fa-2x"></i>';
+      break;
+
+  }
+
+  let li = document.createElement("li");
   li.innerHTML = '<div class="activity">' +
-                    '<img src="Resources/mscott-ph.png" width="50px" height="50px" style="float: left; margin: 5px 0px 0px 5px">' +
-                    '<p id="user-fullname" style="font-size: 15px; font-weight: bolder;">' + activity.userName + '<i class="fas fa-dumbbell fa-2x" style="float: right; color:#3CA9E3; margin: 5px 5px 0px 0px;"></i></p>' +
-                    '<p class="date" style="font-size:10px; color: gray; margin-top: 0em;">' + activity.date.toDate() + '</p>'+
+                    '<img src="' + profilePictureUrl + '" width="50px" height="50px" style="float: left; margin: 5px 0px 0px 5px">' +
+                    '<p id="user-fullname">' + activity.userName + iHTML + '</p>' +
+                    '<p class="date">' + activity.date.toDate() + '</p>'+
                     '<img src="Resources/weight-lifting.jpg" alt="activity icon" class="activity-img" width="400px" height="200px">' +
-                    '<p class="caption"><b>' + activity.type + ': </b>' + activity.caption + '</p>' +
+                    '<p class="caption">' + activity.caption + '</p>' +
                     '<div class="toggles">' +
                       '<i class="far fa-heart"></i> <p id="heartCount">' + activity.likes + '</p>' +
                       '<i class="far fa-comment"></i> <p id="cmtCount">0</p>' +
@@ -154,7 +184,7 @@ function getUserInfo() {
       userWeightElement.textContent = "Weight: " + querySnapshot.data().weight + " lbs";
       userHeightElement.textContent = "Height: " + Math.floor(querySnapshot.data().height / 12) + "ft " + querySnapshot.data().height % 12 + "in";
       userSexElement.textContent = "Sex: " + querySnapshot.data().sex;
-      userGreetingElement.textContent = querySnapshot.data().firstname + ",";
+      userGreetingElement.textContent = querySnapshot.data().firstname;
     }
   })
   .catch(function (error) {
@@ -365,6 +395,19 @@ function createSwimActivity(type, postTime, postLaps, postDistance, caption, isP
     console.error('Error writing new activity to firestore', error);
   });
 
+}
+
+function loadProfilePicture() {
+  const profileRef = storageRef.child("profile/" + getUserId());//load from the users id
+  profileRef.getDownloadURL().then(function(url) {
+    profilePictureUrl = url;
+    let profilePicture = document.getElementById("profilePicture");//setup profile picture in navbar
+    profilePicture.src = url;
+  }).catch(function(error) {
+    if (error.code === 'storage/object-not-found') {
+      //profile picture not found
+    }
+  });
 }
 
 // Signs-out of Dash Browns.

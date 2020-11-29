@@ -27,6 +27,9 @@ userInfoSubmitButton.addEventListener("click", collectUserData);
 //firestore references
 const usersReference = firebase.firestore().collection("Users");
 
+//firebase storage references
+const storageRef = firebase.storage().ref();
+
 // upload profile pic listener
 var uploadImageFile = document.getElementById("profile-pic-file");
 uploadImageFile.addEventListener("change", uploadProfilePic);
@@ -41,6 +44,7 @@ function authStateObserver(user) {
     if (user) {//user successfully logged in
         
         getUserInfo();
+        loadProfilePicture()
         loadUserProfile();
 
     } else {
@@ -99,7 +103,6 @@ function collectUserData() {
     }
   
     const fullName = fName.toLowerCase() + " " + lName.toLowerCase();
-    const profilePicture = uploadImageFile.value;
     let bio = "";
     let height = "";
     let weight = "";
@@ -186,7 +189,34 @@ function uploadProfilePic() {
        var profileAvatar = document.getElementById("avatar");
        // sets avatar image src 
        profileAvatar.src = URL.createObjectURL(imageFile);
+       collectProfilePicture(imageFile);
      }
+}
+
+function collectProfilePicture(profilePicture) {
+
+  const profileRef = storageRef.child("profile/" + getUserId());//store with the users id
+  profileRef.put(profilePicture).then(function () {
+    //successfully uploaded the image
+  }).catch(function() {
+    console.log("Unable to upload profile picture");
+  });
+
+}
+
+function loadProfilePicture() {
+  const profileRef = storageRef.child("profile/" + getUserId());//load from the users id
+  profileRef.getDownloadURL().then(function(url) {
+    let profileAvatar = document.getElementById("avatar");//setup profile page
+    profileAvatar.src = url;
+
+    let profilePicture = document.getElementById("profilePicture");//setup profile picture in navbar
+    profilePicture.src = url;
+  }).catch(function(error) {
+    if (error.code === 'storage/object-not-found') {
+      //profile picture not found
+    }
+  });
 }
 
 // Signs-out of Dash Browns.

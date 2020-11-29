@@ -255,6 +255,26 @@ input[type="radio"] {
   color: black;
 } 
 
+.activity i {
+  float: right;
+  color:#3CA9E3;
+  margin: 5px 5px 0px 0px;
+}
+
+.activity #user-fullname {
+  font-size: 1.5em;
+  font-weight: bolder;
+  margin-bottom: 0;
+}
+
+.activity .date {
+  font-size: 1em;
+  color: gray;
+  margin-top: 0em;
+  position: relative;
+  top: -1vh;
+}
+
 .activity-img {
   float: none;
   padding-left: 35%;
