@@ -130,7 +130,7 @@ function loadUserActivities() {
   activitiesList = [];
 
   //get the data from every activity associated with the current user
-  usersReference.doc(getUserId()).collection("Activities").get()
+  usersReference.doc(getUserId()).collection("Activities").orderBy("date", "desc").get()
   .then(function (querySnapshot) {
     querySnapshot.forEach(function(doc) {//go through every activity belonging to the user
       //add each user activity to a list
