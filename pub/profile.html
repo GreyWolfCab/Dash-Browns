@@ -1,105 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-
-        <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <!-- Custom styles for this template -->
-        <link href="style.css" rel="stylesheet">
-        <!-- Font Awesome SVG-->
-        <script src="https://use.fontawesome.com/releases/v5.15.0/js/all.js" data-auto-replace-svg="nest"></script>
-    </head>
-    <body style="background-color:#CADFEE;">
-        <nav class = "navbar sticky-top navbar-light bg-light">
-               <a href = "dashboard.html">Dash Browns</a> <!--refresh dashboard-->
-                <form class="form-inline">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" id="searchbtn" onclick="searchUser();return false;"><i class="fas fa-search"></i></button>
-                    <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search User ID" aria-label="Search">
-                </form>    
-                <a href = "#">Logout <i class="fas fa-sign-out-alt"></i></a>
-        </nav>
-
-        <div class="profile-left-bar">
-            <img src="Resources/mscott-ph.png" id="profile-img" style="margin-top: 30px; height: 70%; width: 70%;">
-            <h1 class="user-name" id="username">FirstName LastName</h1>
-            <p class="user-bio">This is my personal bio</p>
-            <div class="add-friend-container">
-                <button id="add-friend-btn" class="btn btn-lg btn-primary btn-block" type="submit"> <i class="fas fa-user-plus"></i> Add Friend</button>
-            </div>
-            <div class="cancel-request-container" style="display: none;">
-                <button id="cancel-request-btn" class="btn btn-lg btn-danger btn-block" type="submit" style="width: 70%; margin: auto; margin-top: 20px;"><i class="fas fa-times"></i> Cancel Request</button>
-            </div>
-            </div>
-        </div>
-
-        <main>
-            <div class="main-container">
-                <h3>FirstName's latest activities</h3>
-                <div class="activity">
-                    <img src="Resources/mscott-ph.png" width="50px" height="50px" style="float: left; margin: 5px 0px 0px 5px">
-                    <p id="user-fullname" style="font-size: 15px; font-weight: bolder;">Fname LName<i class="fas fa-dumbbell fa-2x" style="float: right; color:#3CA9E3; margin: 5px 5px 0px 0px;"></i></p>
-                    <p class="date" style="font-size:10px; color: gray; margin-top: 0em;">Month #, #### at ##:##pm</p>
-                    <img src="Resources/weight-lifting.jpg" alt="activity icon" class="activity-img" width="400px" height="200px">
-                    <p class="caption">image caption here...</p>
-                    <div class="toggles">
-                        <i class="far fa-heart"></i> <p id="heartCount">0</p>
-                        <i class="far fa-comment" style="margin-left: 15px;"></i> <p id="cmtCount">0</p>
-                    </div>
-                </div>
-            </div> 
-        
-        <!-- Search Result List -->
-        <div id="results-list" style="display: none;">
-           <div class="friend">
-               <img class="friend-img" src="Resources/user.png" onclick="location.href='profile.html'"/>
-               <p class="friend-name"  onclick="location.href='profile.html'"> John Doe</p>
-               <div class="friendsbtngroup">
-                   <div class="add-friend-container" style=" margin-right:10px;">
-                       <button id="add-friend-btn" class="btn btn-sm btn-primary btn-block" type="submit" style="width:100px; margin:0;"><i class="fas fa-user-plus"></i> Add</button>
-                   </div>
-                   <div class="cancel-request-container" style="display: none;">
-                       <button id="cancel-request-btn" class="btn btn-sm btn-danger btn-block" type="submit" style="width:140px; margin:0;"><i class="fas fa-times"></i> Cancel Request</button>
-                   </div>
-               </div>
-           </div>
-       </div>  
-        </main>
-
-
-    <!-- Import and configure the Firebase SDK -->
-    <!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
-    <!-- If you do not want to serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
-        <script src="/__/firebase/7.18.0/firebase-app.js"></script>
-        <script src="/__/firebase/7.18.0/firebase-auth.js"></script>
-        <script src="/__/firebase/7.18.0/firebase-storage.js"></script>
-        <script src="/__/firebase/7.18.0/firebase-messaging.js"></script>
-        <script src="/__/firebase/7.18.0/firebase-firestore.js"></script>
-        <script src="/__/firebase/7.18.0/firebase-performance.js"></script>
-        <script src="/__/firebase/7.18.0/firebase-analytics.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-app.js"></script>
-        <script src="/__/firebase/init.js"></script>
-          
-        <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
-        <script>
-          var firebaseConfig = {
-            apiKey: "AIzaSyArFP27z6UIzkrz67LXdXGI8j5Y6zVBdUs",
-            authDomain: "dash-browns.firebaseapp.com",
-            databaseURL: "https://dash-browns.firebaseio.com",
-            projectId: "dash-browns",
-            storageBucket: "dash-browns.appspot.com",
-            messagingSenderId: "997568650883",
-            appId: "1:997568650883:web:28b8e5567f9f1a223285b6",
-            measurementId: "G-44Z9ZPLD7L"
-          };
-          // Initialize Firebase
-          firebase.initializeApp(firebaseConfig);
-          firebase.analytics();
-        </script> 
-        <script src="main.js"></script> 
-        <script src="search.js"></script> 
-    </body>
-    
-</html>
+<button onclick="location.href='profile.html'" type="button"><img src="Resources/mscott-ph.png" width="150px" height="150px">
+<h2> <p id="user-fullname">FName LName</p> </h2></button>
+<div class="user-stats">
+    <p id="user-weight">weight</p>
+    <p id="user-height">height</p>
+    <p id="user-sex">sex</p>
+</div>
+<div class="container">
+    <div>
+        <button onclick="location.href='dashboard.html'" type="button" id="btns" class="btn btn-lg"><i class="fas fa-home"></i> Dashboard</button>
+    </div>
+    <div>
+        <button onclick="location.href='activityfeed.html'" type="button" id="btns" class="btn btn-lg"><i class="fa fa-tasks"></i> Activity Feed</button>
+    </div>
+    <div>
+        <button onclick="location.href='friends.html'" type="button" id="btns" class="btn btn-lg"><i class="fas fa-user-friends"></i> Friends</button>
+    </div>
+    <!--class="row align-items-center" -->
+    <div>
+        <button onclick="location.href='settings.html'" type="button" id="btns" class="btn btn-lg"><i class="fas fa-cog"></i> Settings</button>
+    </div>
+</div>

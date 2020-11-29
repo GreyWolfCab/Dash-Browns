@@ -51,7 +51,7 @@ document.addEventListener("click", function(event) {
   }
 });
 
-//login listener
+//logout listener
 signInButtonElement.addEventListener("click", signOut);
 
 //firestore references
@@ -60,7 +60,7 @@ const activitiesReference = firebase.firestore().collection("Activities");
 
 initFirebaseAuth();//upon loading check the auth status of the user
 
-var activitiesList = [];
+var activitiesList = [];//empty list of user activities
 
 function authStateObserver(user) {
   

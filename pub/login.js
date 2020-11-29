@@ -76,18 +76,19 @@ function changeOverlay() {
 
 }
 
+//gather all data entered by the user to create their profile
 function collectUserData() {
 
   const id = getUserId();
   let fName = "";
   let lName = "";
 
-  if (document.getElementById("firstName").value !== "") {
+  if (document.getElementById("firstName").value !== "") {//check field isn't empty
     const tempfName = document.getElementById("firstName").value;
     fName = tempfName.charAt(0).toUpperCase() + tempfName.slice(1).toLowerCase();
   }
 
-  if (document.getElementById("lastName").value !== "") {
+  if (document.getElementById("lastName").value !== "") {//check field isn't empty
     const templName = document.getElementById("lastName").value;
     lName = templName.charAt(0).toUpperCase() + templName.slice(1).toLowerCase();
   }
@@ -127,7 +128,7 @@ function collectUserData() {
 
 function createNewUser(firstName, lastName, fullName, bio, height, weight, id, sex, profilePicture) {
 
-  //TODO store profile pic to firestore
+  //TODO store profile pic to firebase storage
 
   // send to firestore
   firebase.firestore().collection('Users').doc(getUserId()).set({

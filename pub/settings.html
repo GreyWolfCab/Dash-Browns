@@ -19,33 +19,33 @@
                     <button class="btn btn-outline-primary my-2 my-sm-0" id="searchbtn" onclick="searchUser();return false;"><i class="fas fa-search"></i></button>
                     <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search User ID" aria-label="Search">
                 </form>    
-                <a id="logout" href = "#">Logout</a>
+                <button id="logout" class="btn btn-lg btn-primary">Logout</button>
             </ul>
         </nav>
 
         <aside class="left-bar">
-            <button onclick="location.href='profile.html'" type="button"><img src="Resources/mscott-ph.png" width="150px" height="150px">
-            <h2> <p id="user-fullname">FName LName</p> </h2></button>
-            <div class="user-stats">
-                <p id="user-weight">weight</p>
-                <p id="user-height">height</p>
-                <p id="user-sex">sex</p>
-            </div>
-            <div class="container">
-                <div>
-                    <button onclick="location.href='dashboard.html'" type="button" id="btns" class="btn btn-lg"><i class="fas fa-home"></i> Dashboard</button>
+                <button onclick="location.href='profile.html'" type="button"><img src="Resources/mscott-ph.png" width="150px" height="150px">
+                <h2> <p id="user-fullname">FName LName</p> </h2></button>
+                <div class="user-stats">
+                    <p id="user-weight">weight</p>
+                    <p id="user-height">height</p>
+                    <p id="user-sex">sex</p>
                 </div>
-                <div>
-                    <button onclick="location.href='activityfeed.html'" type="button" id="btns" class="btn btn-lg"><i class="fa fa-tasks"></i> Activity Feed</button>
+                <div class="container">
+                    <div>
+                        <button onclick="location.href='dashboard.html'" type="button" id="btns" class="btn btn-lg"><i class="fas fa-home"></i> Dashboard</button>
+                    </div>
+                    <div>
+                        <button onclick="location.href='activityfeed.html'" type="button" id="btns" class="btn btn-lg"><i class="fa fa-tasks"></i> Activity Feed</button>
+                    </div>
+                    <div>
+                        <button onclick="location.href='friends.html'" type="button" id="btns" class="btn btn-lg"><i class="fas fa-user-friends"></i> Friends</button>
+                    </div>
+                    <!--class="row align-items-center" -->
+                    <div>
+                        <button onclick="location.href='settings.html'" type="button" id="btns" class="btn btn-lg"><i class="fas fa-cog"></i> Settings</button>
+                    </div>
                 </div>
-                <div>
-                    <button onclick="location.href='friends.html'" type="button" id="btns" class="btn btn-lg"><i class="fas fa-user-friends"></i> Friends</button>
-                </div>
-                <!--class="row align-items-center" -->
-                <div>
-                    <button onclick="location.href='settings.html'" type="button" id="btns" class="btn btn-lg"><i class="fas fa-cog"></i> Settings</button>
-                </div>
-            </div>
         </aside>
 
         <main class="main">
@@ -128,12 +128,12 @@
         <script src="/__/firebase/7.21.1/firebase-app.js"></script>
         <!-- include only the Firebase features as you need -->
         <script src="/__/firebase/7.21.1/firebase-auth.js"></script>
-        <script src="/__/firebase/7.21.1/firebase-database.js"></script>
-        <script src="/__/firebase/7.21.1/firebase-messaging.js"></script>
         <script src="/__/firebase/7.21.1/firebase-storage.js"></script>
+        <script src="/__/firebase/7.21.1/firebase-firestore.js"></script>
         <!-- initialize the SDK after all desired features are loaded -->
         <script src="/__/firebase/init.js"></script>
         
+        <script src="settings.js"></script> 
         <script src="search.js"></script>
     </body>
     
