@@ -4,7 +4,6 @@ var cancelRequestContainer = document.getElementsByClassName("cancel-request-con
 var searchUserNameElement = document.getElementById("friend-name");
 var friendDivElement = document.getElementsByClassName("friend")[0];
 
-
 // event listener for add & cancel request
 addButtonContainer.addEventListener("click", addFriend);
 cancelRequestContainer.addEventListener("click", cancelFriendRequest);
@@ -14,6 +13,7 @@ function searchUser() {
 
     var input = document.getElementById("searchInput").value;
     var friendFound = 0; // using as a boolean
+    
 
     usersReference.where('fullname', '==', input.toLowerCase()).get()
     .then(function(querySnapshot) {
