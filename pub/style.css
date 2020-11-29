@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Texturina&display=swap');
+
 .log-body, .landing-body
 /* html,
 body  */{
@@ -44,6 +46,11 @@ body  */{
   padding: 40px;
   border-radius: 5px;
   background-color: #f5f5f5;
+}
+
+.title a {
+  font-family: 'Texturina', serif;
+  font-size: 2.5em;
 }
 
 .login-container {
@@ -300,16 +307,19 @@ input[type="radio"] {
 
 .item {
   display: inline-block;
-  text-align: center;
-  margin: 0.2em 0.5em;
-  padding: 1em 1em;
+  padding-top: 0.9em;
   background-color: #1A3F56;
   color: #61BCC6;
   border: 2px solid #3CA9E3;
   border-radius: 15%;
-  width: 100px;
+  width: 7em;
   height: auto;
 }
+
+.item p{
+  text-align: center;
+}
+
 .activities {
   /* width: 100%; */
   height: auto;

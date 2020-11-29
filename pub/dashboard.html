@@ -14,13 +14,10 @@
     </head>
     <body style="background-color:#CADFEE;">
         <nav class = "navbar sticky-top navbar-light bg-light">
-               <a href = "dashboard.html">Dash Browns</a> <!--refresh dashboard-->
-                <form class="form-inline">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" id="searchbtn" onclick="searchUser();return false;"><i class="fas fa-search"></i></button>
-                    <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search User ID" aria-label="Search">
-                </form>    
-                <button id="logout" class="btn btn-lg btn-primary">Logout</button>
-            </ul>
+            <div class="title">
+                <a href = "dashboard.html">Dash Browns</a>
+            </div>
+            <button id="logout" class="btn btn-lg btn-primary">Logout</button>
         </nav>
 
         <aside class="left-bar">
@@ -55,14 +52,14 @@
                 </div>
 
                 <div class="activity-header">
-                    <h4>Hey <p id="firstName">FName!</p></h4>
+                    <h4>Hey <p id="firstName" style="display: inline;">FName</p>!</h4>
                     <h4>What are you up to today?</h4> <br>
                 </div>
                 <div class="activities">
                     <button type="button" id="weight-lifting-act">
-                        <div class="item" style="height: 100px; vertical-align: bottom; height: 110px;"> 
+                        <div class="item"> 
                         <i class="fas fa-dumbbell fa-2x"></i>
-                        <p style="font-size: 12px;">Weight Lifting</p> 
+                        <p>Weight Lifting</p> 
                         </div>
                     </button>
                     <button type="button" id="running-act">
@@ -97,7 +94,7 @@
                     </button>
                 </div> <br>
                 <div class="activity-title">
-                    <h4>My activities</h4>
+                    <h4>My Activities</h4>
                 </div>
                 <div class="activity-list">
                     <ul id="activityList">
