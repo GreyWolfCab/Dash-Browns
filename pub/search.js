@@ -1,8 +1,8 @@
 // get add & cancel request div elements
 var addButtonContainer = document.getElementsByClassName("add-friend-container")[0];
 var cancelRequestContainer = document.getElementsByClassName("cancel-request-container")[0];
-var searchUserNameElement = document.getElementById("friend-name");
-var friendDivElement = document.getElementsByClassName("friend")[0];
+var searchUserNameElement = document.getElementsByClassName("searched-friend-name")[0];
+var friendDivElement = document.getElementsByClassName("searched-friend")[0];
 
 // event listener for add & cancel request
 addButtonContainer.addEventListener("click", addFriend);
@@ -13,18 +13,18 @@ function searchUser() {
 
     var input = document.getElementById("searchInput").value;
     var friendFound = 0; // using as a boolean
-    
 
     usersReference.where('fullname', '==', input.toLowerCase()).get()
     .then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
 
         if(doc.data().id === getUserId()){
-          friendDivElement.style.visibility = "hidden";
+          friendDivElement.style.display = "none";
         }
         else{
-          friendDivElement.style.visibility = "visible";
+          friendDivElement.style.display = "flex";
           console.log(doc.data().firstname, " => ", doc.data().id);
+
           console.log(getUserId());
           var dispName = doc.data().firstname + " " + doc.data().lastname;
           searchUserNameElement.textContent = dispName;
@@ -32,7 +32,7 @@ function searchUser() {
         }
       });
       if(friendFound === 0){  // friend is not found, false
-        friendDivElement.style.visibility = "hidden";
+        friendDivElement.style.display = "none";
       }
     })
     .catch(function(error) {

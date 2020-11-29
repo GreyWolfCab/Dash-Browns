@@ -17,7 +17,7 @@
                <a href = "dashboard.html">Dash Browns</a> <!--refresh dashboard-->
                 <form class="form-inline">
                     <button class="btn btn-outline-primary my-2 my-sm-0" id="searchbtn" onclick="searchUser();return false;"><i class="fas fa-search"></i></button>
-                    <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search User ID" aria-label="Search">
+                    <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search User Name" aria-label="Search">
                 </form>    
                 <a id="logout" href = "#">Logout</a>
             </ul>
@@ -83,11 +83,13 @@
                     </div>
                 </div> 
         
-             <!-- Search Result List -->
-             <div id="results-list" style="display: none;">
-                <div class="friend">
+                
+            </div>
+            <!-- Search Result List -->
+            <div id="results-list" >
+                <div class="searched-friend" style="display: none">
                     <img class="friend-img" src="Resources/user.png" onclick="location.href='profile.html'"/>
-                    <p id="friend-name"  onclick="location.href='profile.html'"> John Doe</p>
+                    <p class="searched-friend-name"> Search Doe</p>
                     <div class="friendsbtngroup">
                         <div class="add-friend-container" style=" margin-right:10px;">
                             <button id="add-friend-btn" class="btn btn-sm btn-primary btn-block" type="submit" style="width:100px; margin:0;"><i class="fas fa-user-plus"></i> Add</button>
