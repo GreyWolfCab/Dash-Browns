@@ -20,6 +20,10 @@ var hikingButton = document.getElementById("hiking-act");
 var bikingButton = document.getElementById("biking-act");
 var walkingButton = document.getElementById("walking-act");
 
+// variables for like feature
+var hasBeenClicked = false;
+var currNumOfLikes = 0; // holds the current number of likes
+
 weightLiftingButton.addEventListener("click", function() {
   postActivity("weightLifting");
 });
@@ -161,7 +165,7 @@ function htmlActivity(activity) {
                     '</div>' +
                     '<p class="caption">' + activity.caption + '</p>' +
                     '<div class="toggles">' +
-                      '<i class="far fa-heart"></i> <p id="heartCount">' + activity.likes + '</p>' +
+                      '<button type="button" id="like-button" onclick="likePost()"><i class="far fa-heart" id="heart"></i></button> <p id="heartCount">' + activity.likes + '</p>' +
                     '</div>'
 
   }).catch(function(error) {
@@ -178,7 +182,7 @@ function htmlActivity(activity) {
                     '</div>' +
                     '<p class="caption">' + activity.caption + '</p>' +
                     '<div class="toggles">' +
-                      '<i class="far fa-heart"></i> <p id="heartCount">' + activity.likes + '</p>' +
+                      '<button type="button" id="like-button" onclick="likePost()"><i class="far fa-heart" id="heart"></i></button> <p id="heartCount">' + activity.likes + '</p>' +
                     '</div>'
 
   });
@@ -553,6 +557,38 @@ function loadActivityImage(activityId) {
     }
   });
   return image;
+}
+
+// like and unlike activity post
+function likePost() {
+  // TODO: get the number of likes from firestore (currNumOfLikes)
+
+  // get the heart icon and counter elements
+  var likeCountElement = document.getElementById("heartCount");
+  var heartIcon = document.getElementById("heart");
+  
+  // unlike post
+  if(hasBeenClicked)
+  {
+      // change heart icon color
+      heartIcon.style.color = "#3CA9E3";
+      currNumOfLikes --;
+      // TODO: update the number of likes in firestore 
+
+      hasBeenClicked = false;
+  }
+  // like post
+  else
+  {
+      // change heart icon color
+      heartIcon.style.color = "red";
+      currNumOfLikes ++;
+      // TODO: update the number of likes in firestore 
+
+      hasBeenClicked = true;
+  }
+  // set the count on the UI with the current num of likes 
+  likeCountElement.innerHTML = currNumOfLikes;
 }
 
 // Signs-out of Dash Browns.
