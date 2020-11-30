@@ -14,6 +14,7 @@ const usersReference = firebase.firestore().collection("Users");
 
 //firebase storage references
 const storageRef = firebase.storage().ref();
+let profilePictureUrl = null;
 
 initFirebaseAuth();//upon loading check the auth status of the user
 
@@ -28,7 +29,6 @@ function authStateObserver(user) {
 
     getUserInfo();
     loadProfilePicture();
-    loadUserActivities();
 
   } else {
     // No user is signed in.
@@ -89,4 +89,23 @@ function initFirebaseAuth() {
 // Returns the signed-in user's ID.
 function getUserId() {
   return firebase.auth().currentUser.uid;
+}
+
+// Signs-out of Dash Browns.
+function signOut() {
+  // Sign out of Firebase.
+  firebase.auth().signOut();
+}
+
+function loadProfilePicture() {
+  const profileRef = storageRef.child("profile/" + getUserId());//load from the users id
+  profileRef.getDownloadURL().then(function(url) {
+    profilePictureUrl = url;
+    let profilePicture = document.getElementById("profilePicture");//setup profile picture in navbar
+    profilePicture.src = url;
+  }).catch(function(error) {
+    if (error.code === 'storage/object-not-found') {
+      //profile picture not found
+    }
+  });
 }

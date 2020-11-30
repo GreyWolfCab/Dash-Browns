@@ -1,3 +1,5 @@
+"use strict";
+
 // get add & cancel request div elements
 var addButtonContainer = document.getElementsByClassName("add-friend-container")[0];
 var cancelRequestContainer = document.getElementsByClassName("cancel-request-container")[0];
@@ -7,6 +9,29 @@ var friendDivElement = document.getElementsByClassName("searched-friend")[0];
 // event listener for add & cancel request
 addButtonContainer.addEventListener("click", addFriend);
 cancelRequestContainer.addEventListener("click", cancelFriendRequest);
+
+//logout listener
+signInButtonElement.addEventListener("click", signOut);
+
+initFirebaseAuth();//upon loading check the auth status of the user
+
+
+// function authStateObserver(user) {
+  
+//   var user = firebase.auth().currentUser;//authentication observer that holds user details
+  
+//   if (user) {//user successfully logged in
+
+//     getUserInfo();
+//     loadProfilePicture();
+
+//   } else {
+//     // No user is signed in.
+//     window.alert("Please login again.");
+//     //send the user to the login page
+//     window.location.href = "login.html";
+//   }
+// }
 
 // search users 
 function searchUser() {
@@ -133,9 +158,4 @@ function cancelFriendRequest() {
   .catch(function(error) {
       console.log("Error getting request documents: ", error);
   });
-}
-
-// Returns the signed-in user's ID.
-function getUserId() {
-  return firebase.auth().currentUser.uid;
 }
