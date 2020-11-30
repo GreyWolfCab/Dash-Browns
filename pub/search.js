@@ -10,9 +10,6 @@ var friendDivElement = document.getElementsByClassName("searched-friend")[0];
 addButtonContainer.addEventListener("click", addFriend);
 cancelRequestContainer.addEventListener("click", cancelFriendRequest);
 
-//logout listener
-signInButtonElement.addEventListener("click", signOut);
-
 initFirebaseAuth();//upon loading check the auth status of the user
 
 
