@@ -133,7 +133,6 @@ function htmlActivity(activity) {
                     '<p class="caption">' + activity.caption + '</p>' +
                     '<div class="toggles">' +
                       '<i class="far fa-heart"></i> <p id="heartCount">' + activity.likes + '</p>' +
-                      '<i class="far fa-comment"></i> <p id="cmtCount">0</p>' +
                     '</div>'
 
   }).catch(function(error) {
@@ -146,7 +145,6 @@ function htmlActivity(activity) {
                     '<p class="caption">' + activity.caption + '</p>' +
                     '<div class="toggles">' +
                       '<i class="far fa-heart"></i> <p id="heartCount">' + activity.likes + '</p>' +
-                      '<i class="far fa-comment"></i> <p id="cmtCount">0</p>' +
                     '</div>'
 
   });
