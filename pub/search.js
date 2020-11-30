@@ -16,23 +16,6 @@ signInButtonElement.addEventListener("click", signOut);
 initFirebaseAuth();//upon loading check the auth status of the user
 
 
-// function authStateObserver(user) {
-  
-//   var user = firebase.auth().currentUser;//authentication observer that holds user details
-  
-//   if (user) {//user successfully logged in
-
-//     getUserInfo();
-//     loadProfilePicture();
-
-//   } else {
-//     // No user is signed in.
-//     window.alert("Please login again.");
-//     //send the user to the login page
-//     window.location.href = "login.html";
-//   }
-// }
-
 // search users 
 function searchUser() {
 
@@ -116,6 +99,20 @@ function addFriend() {
   changeAddOverlay();
 
   var input = document.getElementById("searchInput").value;
+  var RequestedUserFirstName = ''
+  var RequestedUserLastName = ''
+
+  usersReference.doc(getUserId()).get()
+  .then(function (querySnapshot) {
+    if (querySnapshot.exists) {//verify the user is in the database
+      //modify the html with the user's information
+      RequestedUserFirstName = querySnapshot.data().firstname 
+      RequestedUserLastName = querySnapshot.data().lastname
+    }
+  })
+  .catch(function (error) {
+    console.log("Error getting User information:", error);
+  });
 
   usersReference.where('fullname', '==', input.toLowerCase()).get()
   .then(function(querySnapshot) {
@@ -124,7 +121,9 @@ function addFriend() {
 
       // send friend request data to firestore 
       usersReference.doc(doc.data().id).collection('FriendRequests').doc(getUserId()).set({
-        RequestUserID: getUserId()
+        requestUserID: getUserId(),
+        requestedUserFirstName: RequestedUserFirstName,
+        requestedUserLastName: RequestedUserLastName
       }).catch(function(error) {
         console.error('Error writing new friend request to firestore', error);
       });
