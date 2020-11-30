@@ -17,6 +17,10 @@
             <div class="title">
                 <a href = "dashboard.html">Dash Browns</a>
             </div>
+            <form class="form-inline">
+                <button class="btn btn-outline-primary my-2 my-sm-0" id="searchbtn" onclick="searchUser();return false;"><i class="fas fa-search"></i></button>
+                <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search User Name" aria-label="Search">
+            </form> 
             <button id="logout" class="btn btn-lg btn-primary">Logout</button>
         </nav>
 
@@ -94,7 +98,6 @@
         <script src="/__/firebase/7.21.1/firebase-app.js"></script>
         <!-- include only the Firebase features as you need -->
         <script src="/__/firebase/7.21.1/firebase-auth.js"></script>
-        <script src="/__/firebase/7.21.1/firebase-database.js"></script>
         <script src="/__/firebase/7.21.1/firebase-storage.js"></script>
         <script src="/__/firebase/7.21.1/firebase-firestore.js"></script>
         <!-- initialize the SDK after all desired features are loaded -->
