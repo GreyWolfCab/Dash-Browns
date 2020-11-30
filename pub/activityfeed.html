@@ -14,23 +14,20 @@
     </head>
     <body style="background-color:#CADFEE;">
         <nav class = "navbar sticky-top navbar-light bg-light">
-               <a href = "dashboard.html">Dash Browns</a> <!--refresh dashboard-->
-                <form class="form-inline">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" id="searchbtn" onclick="searchUser();return false;"><i class="fas fa-search"></i></button>
-                    <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search User ID" aria-label="Search">
-                </form>    
-                <a href = "#">Logout</a>
-            </ul>
+            <div class="title">
+                <a href = "dashboard.html">Dash Browns</a>
+            </div>
+            <button id="logout" class="btn btn-lg btn-primary">Logout</button>
         </nav>
 
         <aside class="left-bar">
-            <button onclick="location.href='profile.html'" type="button"><img src="Resources/mscott-ph.png" width="150px" height="150px">
-            <h2> <p id="user-fullname">FName LName</p> </h2></button>
-            <div class="user-stats">
-                <p id="user-weight">weight</p>
-                <p id="user-height">height</p>
-                <p id="user-sex">sex</p>
-            </div>
+            <button onclick="location.href='settings.html'" type="button"><img id="profilePicture" src="Resources/upload-avatar.png" width="150px" height="150px">
+                <h2> <p id="user-fullname">FName LName</p> </h2></button>
+                <div class="user-stats">
+                    <p id="user-weight">weight</p>
+                    <p id="user-height">height</p>
+                    <p id="user-sex">sex</p>
+                </div>
             <div class="container">
                 <div>
                     <button onclick="location.href='dashboard.html'" type="button" id="btns" class="btn btn-lg"><i class="fas fa-home"></i> Dashboard</button>
@@ -53,7 +50,7 @@
         <main>
             <div class="main-container">
                 <div id="activity-feed" class="tabcontent"></div>
-                    <h1>activity feed</h1>
+                    <h1>Activity Feed</h1>
                     <div class="activity">
                         <img src="Resources/mscott-ph.png" width="50px" height="50px" style="float: left; margin: 5px 0px 0px 5px">
                         <p id="user-fullname" style="font-size: 15px; font-weight: bolder;">Fname LName<i class="fas fa-dumbbell fa-2x" style="float: right; color:#3CA9E3; margin: 5px 5px 0px 0px;"></i></p>
@@ -98,36 +95,17 @@
 
 
     <!-- Import and configure the Firebase SDK -->
-    <!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
-    <!-- If you do not want to serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
-    <script src="/__/firebase/7.18.0/firebase-app.js"></script>
-    <script src="/__/firebase/7.18.0/firebase-auth.js"></script>
-    <script src="/__/firebase/7.18.0/firebase-storage.js"></script>
-    <script src="/__/firebase/7.18.0/firebase-messaging.js"></script>
-    <script src="/__/firebase/7.18.0/firebase-firestore.js"></script>
-    <script src="/__/firebase/7.18.0/firebase-performance.js"></script>
-    <script src="/__/firebase/7.18.0/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-app.js"></script>
-    <script src="/__/firebase/init.js"></script>
-      
-    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
-    <script>
-      var firebaseConfig = {
-        apiKey: "AIzaSyArFP27z6UIzkrz67LXdXGI8j5Y6zVBdUs",
-        authDomain: "dash-browns.firebaseapp.com",
-        databaseURL: "https://dash-browns.firebaseio.com",
-        projectId: "dash-browns",
-        storageBucket: "dash-browns.appspot.com",
-        messagingSenderId: "997568650883",
-        appId: "1:997568650883:web:28b8e5567f9f1a223285b6",
-        measurementId: "G-44Z9ZPLD7L"
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      firebase.analytics();
-    </script> 
-    <script src="main.js"></script> 
-    <script src="search.js"></script> 
+        <!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
+        <!-- If you do not want to serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
+        <script src="/__/firebase/7.21.1/firebase-app.js"></script>
+        <!-- include only the Firebase features as you need -->
+        <script src="/__/firebase/7.21.1/firebase-auth.js"></script>
+        <script src="/__/firebase/7.21.1/firebase-storage.js"></script>
+        <script src="/__/firebase/7.21.1/firebase-firestore.js"></script>
+        <!-- initialize the SDK after all desired features are loaded -->
+        <script src="/__/firebase/init.js"></script>
+
+        <script src="activityfeed.js"></script>
     </body>
     
 </html>

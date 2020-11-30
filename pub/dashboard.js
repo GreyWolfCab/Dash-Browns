@@ -1,7 +1,7 @@
 "use strict";
 
 //firebase DOM elements
-var signInButtonElement = document.getElementById("logout");
+var signOutButtonElement = document.getElementById("logout");
 
 //user referential elements
 var userNameElement = document.getElementById("user-fullname");
@@ -52,7 +52,7 @@ document.addEventListener("click", function(event) {
 });
 
 //logout listener
-signInButtonElement.addEventListener("click", signOut);
+signOutButtonElement.addEventListener("click", signOut);
 
 //firestore references
 const usersReference = firebase.firestore().collection("Users");

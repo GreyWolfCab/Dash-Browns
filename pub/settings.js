@@ -1,7 +1,7 @@
 "use strict";
 
 //firebase DOM elements
-var signInButtonElement = document.getElementById("logout");
+var signOutButtonElement = document.getElementById("logout");
 var userInfoSubmitButton = document.getElementById("user-info-submit");
 
 //user referential elements
@@ -19,7 +19,7 @@ let profileWeight = document.getElementById("weight");
 let profileGender = document.getElementsByName("gender");
 
 //logout listener
-signInButtonElement.addEventListener("click", signOut);
+signOutButtonElement.addEventListener("click", signOut);
 
 //update user data
 userInfoSubmitButton.addEventListener("click", collectUserData);
