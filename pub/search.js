@@ -23,12 +23,28 @@ function searchUser() {
         }
         else{
           friendDivElement.style.display = "flex";
-          console.log(doc.data().firstname, " => ", doc.data().id);
-
-          console.log(getUserId());
+          // console.log(doc.data().firstname, " => ", doc.data().id);
+          // console.log(getUserId());
           var dispName = doc.data().firstname + " " + doc.data().lastname;
           searchUserNameElement.textContent = dispName;
           friendFound = 1;  // friend is found, true
+
+          //get the data from friend request list associated with the searched user
+          usersReference.doc(doc.data().id).collection("FriendRequests").get()
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(function(docdoc) {
+              if(docdoc.data().RequestUserID == getUserId()){
+                addButtonContainer.style.display = "none";
+                cancelRequestContainer.style.display = "block";
+              }
+              else{
+                addButtonContainer.style.display = "block";
+                cancelRequestContainer.style.display = "none";
+              }
+            });
+          }).catch(function (error) {
+            console.log("Error getting user's friend request list...");
+          });
         }
       });
       if(friendFound === 0){  // friend is not found, false
@@ -73,11 +89,53 @@ function changeCancelRequestOverlay() {
 function addFriend() {
   alert("Friend request sent!")
   changeAddOverlay();
-  // TODO: add friend to user's pending friends list
 
+  var input = document.getElementById("searchInput").value;
+
+  usersReference.where('fullname', '==', input.toLowerCase()).get()
+  .then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+      console.log(getUserId(), " sent request to ", doc.data().firstname)
+
+      // send friend request data to firestore 
+      usersReference.doc(doc.data().id).collection('FriendRequests').doc(getUserId()).set({
+        RequestUserID: getUserId()
+      }).catch(function(error) {
+        console.error('Error writing new friend request to firestore', error);
+      });
+    });
+  })
+  .catch(function(error) {
+      console.log("Error getting documents: ", error);
+  });
 }
 
 function cancelFriendRequest() {
   changeCancelRequestOverlay();
-  // TODO: remove friend from user's pending friends list
+  
+  var input = document.getElementById("searchInput").value;
+
+  usersReference.where('fullname', '==', input.toLowerCase()).get()
+  .then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+
+      //get the data from friend request list associated with the searched user
+      usersReference.doc(doc.data().id).collection("FriendRequests").doc(getUserId()).delete()
+      .then(function (querySnapshot) {
+        console.log("Request successfully deleted!");
+        
+      }).catch(function (error) {
+        console.log("Error getting user's friend request list...");
+      });
+    
+    });
+  })
+  .catch(function(error) {
+      console.log("Error getting request documents: ", error);
+  });
+}
+
+// Returns the signed-in user's ID.
+function getUserId() {
+  return firebase.auth().currentUser.uid;
 }
