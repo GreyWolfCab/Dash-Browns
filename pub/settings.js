@@ -149,6 +149,7 @@ function updateUser(firstName, lastName, fullName, bio, height, weight, id, sex,
 
         //reload input values
         loadUserProfile();
+        window.location.href = "dashboard.html";
 
     }).catch(function() {//failed to update users information
 
