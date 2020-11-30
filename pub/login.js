@@ -17,6 +17,9 @@ uploadImageFile.addEventListener("change", uploadProfilePic);
 //firestore references
 const usersReference = firebase.firestore().collection("Users");
 
+//firebase storage references
+const storageRef = firebase.storage().ref();
+
 initFirebaseAuth();//upon loading check the auth status of the user
 
 function authStateObserver(user) {
@@ -94,7 +97,6 @@ function collectUserData() {
   }
 
   const fullName = fName.toLowerCase() + " " + lName.toLowerCase();
-  const profilePicture = uploadImageFile.value;
   let bio = "";
   let height = "";
   let weight = "";
@@ -122,11 +124,11 @@ function collectUserData() {
   }
 
   //create the new user in firestore
-  createNewUser(fName, lName, fullName, bio, height, weight, id, sex, profilePicture);
+  createNewUser(fName, lName, fullName, bio, height, weight, id, sex);
 
 }
 
-function createNewUser(firstName, lastName, fullName, bio, height, weight, id, sex, profilePicture) {
+function createNewUser(firstName, lastName, fullName, bio, height, weight, id, sex) {
 
   //TODO store profile pic to firebase storage
 
@@ -186,5 +188,17 @@ function uploadProfilePic() {
      var profileAvatar = document.getElementById("avatar");
      // sets avatar image src 
      profileAvatar.src = URL.createObjectURL(imageFile);
+     collectProfilePicture(imageFile);
    }
  }
+
+ function collectProfilePicture(profilePicture) {
+
+  const profileRef = storageRef.child("profile/" + getUserId());//store with the users id
+  profileRef.put(profilePicture).then(function () {
+    //successfully uploaded the image
+  }).catch(function() {
+    console.log("Unable to upload profile picture");
+  });
+
+}
