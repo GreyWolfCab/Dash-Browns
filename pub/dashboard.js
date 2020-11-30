@@ -61,6 +61,10 @@ const activitiesReference = firebase.firestore().collection("Activities");
 //firebase storage references
 const storageRef = firebase.storage().ref();
 
+//stores activity images
+let uploadImageFile = null;
+let activityImage = null;
+
 let profilePictureUrl = null;
 
 initFirebaseAuth();//upon loading check the auth status of the user
@@ -276,9 +280,10 @@ function postActivity(type) {
 
   div.innerHTML = "<h2>Post an activity</h2>" +
                     '<div class="upload-profileimg">' +
-                      '<div class="upload-profile-wrapper">' +
-                      '<button id="upload-btn" class="btn btn-primary btn-sm"><i class="far fa-file-image"></i> Upload Image</button>' +
-                      '<input type="file" accept="image/png" name="profile-pic" id="profile-pic-file"/>' +
+                      '<img id="activityImage" src="Resources/weight-lifting.jpg" width="400px" height="200px">' +
+                      '<div class="upload-activity-wrapper">' +
+                        '<button id="upload-btn" class="btn btn-primary btn-sm"><i class="far fa-file-image"></i> Upload Image</button>' +
+                        '<input type="file" accept="image/png" name="activity-pic" id="activity-pic-file"/>' +
                       '</div>' +
                     '</div>' +
                     '<div class="post-info-container">' +
@@ -292,7 +297,6 @@ function postActivity(type) {
                         '<div class="privacy-toggle">' +
                             '<label class="switch">' +
                                 '<input id="postPrivate" type="checkbox">' +
-                                'Public' +
                                 '<span class="slider round"></span>' +
                             'Private' +
                             '</label>' +
@@ -305,6 +309,11 @@ function postActivity(type) {
 
   activityOverlayDivElement.innerHTML = "";
   activityOverlayDivElement.appendChild(div);
+
+  // upload profile pic listener
+  uploadImageFile = document.getElementById("activity-pic-file");
+  uploadImageFile.addEventListener("change", uploadActivityPic);
+
   changeOverlay();
 
 }
@@ -329,12 +338,12 @@ function collectActivityData() {
     let postTitle = document.getElementById("postTitle").value;
     let postSets = document.getElementById("postSets").value;
     let postReps = document.getElementById("postReps").value;
-    createWeigthActivity(type, postTitle, postSets, postReps, caption, isPrivate);
+    createWeightActivity(type, postTitle, postSets, postReps, caption, isPrivate);
   }
 
 }
 
-function createWeigthActivity(type, postTitle, postSets, postReps, caption, isPrivate) {
+function createWeightActivity(type, postTitle, postSets, postReps, caption, isPrivate) {
 
   // send to firestore
   firebase.firestore().collection('Users').doc(getUserId()).collection('Activities').add({
@@ -346,7 +355,10 @@ function createWeigthActivity(type, postTitle, postSets, postReps, caption, isPr
     isPrivate: isPrivate,
     likes: 0,
     date: firebase.firestore.FieldValue.serverTimestamp()
-  }).then(function() {
+  }).then(function(doc) {
+    if (activityImage !== null) {
+      collectActivityPicture(doc.id);
+    }
     loadUserActivities();
     changeOverlay();
   }).catch(function(error) {
@@ -367,7 +379,10 @@ function createCardioActivity(type, postTime, postDistance, postCalories, captio
     isPrivate: isPrivate,
     likes: 0,
     date: firebase.firestore.FieldValue.serverTimestamp()
-  }).then(function() {
+  }).then(function(doc) {
+    if (activityImage !== null) {
+      collectActivityPicture(doc.id);
+    }
     loadUserActivities();
     changeOverlay();
   }).catch(function(error) {
@@ -388,7 +403,10 @@ function createSwimActivity(type, postTime, postLaps, postDistance, caption, isP
     isPrivate: isPrivate,
     likes: 0,
     date: firebase.firestore.FieldValue.serverTimestamp()
-  }).then(function() {
+  }).then(function(doc) {
+    if (activityImage !== null) {
+      collectActivityPicture(doc.id);
+    }
     loadUserActivities();
     changeOverlay();
   }).catch(function(error) {
@@ -408,6 +426,38 @@ function loadProfilePicture() {
       //profile picture not found
     }
   });
+}
+
+// displays uploaded profile picture
+function uploadActivityPic() {
+  
+  var imageFile = uploadImageFile.files[0];
+  // check file size
+   if(imageFile.size > (2 * 1024 * 1024)) // 2MB file size limit for a user icon
+   {
+     alert("Image file size cannot exceed 2MB");
+   }
+   // change avatar img src to image user uploaded
+   else 
+   {
+     var activityAvatar = document.getElementById("activityImage");
+     // sets avatar image src 
+     activityAvatar.src = URL.createObjectURL(imageFile);
+     activityImage = imageFile;
+   }
+}
+
+function collectActivityPicture(activityId) {
+
+  const activityRef = storageRef.child("activity/" + activityId);//store with the activity's id
+  activityRef.put(activityImage).then(function () {
+    //successfully uploaded the image
+  }).catch(function() {
+    console.log("Unable to upload activity picture");
+  });
+
+  activityImage = null;
+
 }
 
 // Signs-out of Dash Browns.
