@@ -95,7 +95,31 @@ function authStateObserver(user) {
  * @param {Activity} activity object that stores a single activity's data
  */
 function htmlActivity(activity) {
-  
+
+  let activityStatsHTML;
+  switch(activity.type) {
+    case "weightLifting":
+      activityStatsHTML = '<p>Title: ' + activity.stat1 + '</p>' +
+                          '<p>Sets: ' + activity.stat2 + '</p>' +
+                          '<p>Reps: ' + activity.stat3 + '</p>';
+      break;
+    case "swimming":
+      activityStatsHTML = '<p>Time: ' + activity.stat1 + '</p>' +
+                          '<p>Laps: ' + activity.stat2 + '</p>' +
+                          '<p>Distance: ' + activity.stat3 + '</p>';
+      break;
+    case "running":
+    case "hiking":
+    case "biking":
+    case "walking":
+    default:
+      activityStatsHTML = '<p>Time: ' + activity.stat1 + '</p>' +
+                          '<p>Distance: ' + activity.stat2 + '</p>' +
+                          '<p>Calories: ' + activity.stat3 + '</p>';
+      break;
+
+  }
+
   let iHTML;
   switch(activity.type) {
     case "weightLifting": 
@@ -129,7 +153,12 @@ function htmlActivity(activity) {
                     '<img src="' + profilePictureUrl + '" width="50px" height="50px" style="float: left; margin: 5px 0px 0px 5px">' +
                     '<p id="user-fullname">' + activity.userName + iHTML + '</p>' +
                     '<p class="date">' + activity.date.toDate() + '</p>'+
-                    '<img src="' + url + '" alt="activity icon" class="activity-img" width="400px" height="200px">' +
+                    '<div class="activity-details">' +
+                      '<img src="' + url + '" alt="activity icon" class="activity-img" width="400px" height="200px">' +
+                      '<div class="activity-stats">' +
+                        activityStatsHTML +
+                      '</div>' +
+                    '</div>' +
                     '<p class="caption">' + activity.caption + '</p>' +
                     '<div class="toggles">' +
                       '<i class="far fa-heart"></i> <p id="heartCount">' + activity.likes + '</p>' +
@@ -141,7 +170,12 @@ function htmlActivity(activity) {
                     '<img src="' + profilePictureUrl + '" width="50px" height="50px" style="float: left; margin: 5px 0px 0px 5px">' +
                     '<p id="user-fullname">' + activity.userName + iHTML + '</p>' +
                     '<p class="date">' + activity.date.toDate() + '</p>'+
-                    '<img src="Resources/weight-lifting.jpg" alt="activity icon" class="activity-img" width="400px" height="200px">' +
+                    '<div class="activity-details">' +
+                      '<img src="Resources/weight-lifting.jpg" alt="activity icon" class="activity-img">' +
+                      '<div class="activity-stats">' +
+                        activityStatsHTML +
+                      '</div>' +
+                    '</div>' +
                     '<p class="caption">' + activity.caption + '</p>' +
                     '<div class="toggles">' +
                       '<i class="far fa-heart"></i> <p id="heartCount">' + activity.likes + '</p>' +
@@ -185,8 +219,35 @@ function loadUserActivities() {
   usersReference.doc(getUserId()).collection("Activities").orderBy("date", "desc").get()
   .then(function (querySnapshot) {
     querySnapshot.forEach(function(doc) {//go through every activity belonging to the user
+
+      let stat1;
+      let stat2;
+      let stat3;
+      switch(doc.data().type) {
+        case "weightLifting": 
+          stat1 = doc.data().title;
+          stat2 = doc.data().sets;
+          stat3 = doc.data().reps;
+          break;
+        case "swimming":
+          stat1 = doc.data().time;
+          stat2 = doc.data().laps;
+          stat3 = doc.data().distance;
+          break;
+        case "running":
+        case "hiking":
+        case "biking":
+        case "walking":
+        default:
+          stat1 = doc.data().time;
+          stat2 = doc.data().distance;
+          stat3 = doc.data().calories;
+          break;
+
+      }
+      
       //add each user activity to a list
-      activitiesList.push(new Activity(doc.id, doc.data().caption, getUserId(), userName, doc.data().type, doc.data().likes, doc.data().isPrivate, doc.data().date));
+      activitiesList.push(new Activity(doc.id, doc.data().caption, getUserId(), userName, doc.data().type, doc.data().likes, doc.data().isPrivate, doc.data().date, stat1, stat2, stat3));
     });
     drawActivities();//draw every activity in html for the user
   }).catch(function (error) {
@@ -216,12 +277,15 @@ function getUserInfo() {
 }
 
 //store a user's activity to easily access it, based on firestore collection of activities
-function Activity(id, caption, userId, userName, type, likes, isPrivate, date) {
+function Activity(id, caption, userId, userName, type, likes, isPrivate, date, stat1, stat2, stat3) {
   this.id = id;
   this.caption = caption;
   this.userId = userId;
   this.userName = userName;
   this.type = type;
+  this.stat1 = stat1;
+  this.stat2 = stat2;
+  this.stat3 = stat3;
   this.likes = likes;
   this.isPrivate = isPrivate;
   this.date = date;
