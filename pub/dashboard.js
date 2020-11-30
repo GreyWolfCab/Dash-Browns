@@ -121,7 +121,24 @@ function htmlActivity(activity) {
   }
 
   let li = document.createElement("li");
-  li.innerHTML = '<div class="activity">' +
+
+  const activityRef = storageRef.child("activity/" + activity.id);//store with the activity's id
+  activityRef.getDownloadURL().then(function(url) {
+
+    li.innerHTML = '<div class="activity">' +
+                    '<img src="' + profilePictureUrl + '" width="50px" height="50px" style="float: left; margin: 5px 0px 0px 5px">' +
+                    '<p id="user-fullname">' + activity.userName + iHTML + '</p>' +
+                    '<p class="date">' + activity.date.toDate() + '</p>'+
+                    '<img src="' + url + '" alt="activity icon" class="activity-img" width="400px" height="200px">' +
+                    '<p class="caption">' + activity.caption + '</p>' +
+                    '<div class="toggles">' +
+                      '<i class="far fa-heart"></i> <p id="heartCount">' + activity.likes + '</p>' +
+                      '<i class="far fa-comment"></i> <p id="cmtCount">0</p>' +
+                    '</div>'
+
+  }).catch(function(error) {
+    
+    li.innerHTML = '<div class="activity">' +
                     '<img src="' + profilePictureUrl + '" width="50px" height="50px" style="float: left; margin: 5px 0px 0px 5px">' +
                     '<p id="user-fullname">' + activity.userName + iHTML + '</p>' +
                     '<p class="date">' + activity.date.toDate() + '</p>'+
@@ -131,6 +148,9 @@ function htmlActivity(activity) {
                       '<i class="far fa-heart"></i> <p id="heartCount">' + activity.likes + '</p>' +
                       '<i class="far fa-comment"></i> <p id="cmtCount">0</p>' +
                     '</div>'
+
+  });
+
   return li;         
                 
 }
@@ -168,7 +188,7 @@ function loadUserActivities() {
   .then(function (querySnapshot) {
     querySnapshot.forEach(function(doc) {//go through every activity belonging to the user
       //add each user activity to a list
-      activitiesList.push(new Activity(doc.data().caption, getUserId(), userName, doc.data().type, doc.data().likes, doc.data().isPrivate, doc.data().date));
+      activitiesList.push(new Activity(doc.id, doc.data().caption, getUserId(), userName, doc.data().type, doc.data().likes, doc.data().isPrivate, doc.data().date));
     });
     drawActivities();//draw every activity in html for the user
   }).catch(function (error) {
@@ -198,8 +218,8 @@ function getUserInfo() {
 }
 
 //store a user's activity to easily access it, based on firestore collection of activities
-function Activity(caption, userId, userName, type, likes, isPrivate, date) {
-
+function Activity(id, caption, userId, userName, type, likes, isPrivate, date) {
+  this.id = id;
   this.caption = caption;
   this.userId = userId;
   this.userName = userName;
@@ -458,6 +478,19 @@ function collectActivityPicture(activityId) {
 
   activityImage = null;
 
+}
+
+function loadActivityImage(activityId) {
+  let image = null;
+  const activityRef = storageRef.child("activity/" + activityId);//store with the activity's id
+  activityRef.getDownloadURL().then(function(url) {
+    image = url;
+  }).catch(function(error) {
+    if (error.code === 'storage/object-not-found') {
+      //profile picture not found
+    }
+  });
+  return image;
 }
 
 // Signs-out of Dash Browns.
