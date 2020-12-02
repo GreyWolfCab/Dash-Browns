@@ -103,7 +103,7 @@ function loadPendingFriends() {
   .then(function(querySnapshot) {
     querySnapshot.forEach(function(request) {
       
-      const profileRef = storageRef.child("profile/" + request.id);//store with the activity's id
+      const profileRef = storageRef.child("profile/" + request.id);//store with the friendRequest's id
       profileRef.getDownloadURL().then(function(url) {
         drawPendingFriend(new PendingFriend(url, request.id, request.data().requestedUserFirstName, request.data().requestedUserLastName));
       }).catch(function(error) {
@@ -128,17 +128,17 @@ function drawPendingFriend(pendingFriend) {
 }
 
 function htmlPendingFriend(pendingFriend) {
-  
+
   let div = document.createElement("div");
   div.setAttribute("class", "friend");
   div.innerHTML = '<img class="friend-img" src="' + pendingFriend.requestPicture + '"/>' +
                   '<p class="friend-name"> ' + pendingFriend.firstName + ' ' + pendingFriend.lastName + '</p>' +
                   '<div class="friendsbtngroup">' +
                       '<div class="accept-friend-btn" style=" margin-right:10px;">' +
-                          '<button id="accept-friend-btn" class="btn btn-sm btn-success btn-block" type="submit" style="width:100px; margin:0;"> <i class="fas fa-check"></i> Accept</button>' +
+                          '<button id= "' + pendingFriend.id + '" onclick = "acceptFriend(this.id)" class="btn btn-sm btn-success btn-block" type="submit" style="width:100px; margin:0;"> <i class="fas fa-check"></i> Accept</button>' +
                       '</div>' +
                       '<div class="decline-friend-btn">' +
-                          '<button id="decline-friend-btn" class="btn btn-sm btn-danger btn-block" type="submit" style="width:100px; margin:0;"> <i class="fas fa-times"></i> Decline</button>' +
+                          '<button id="' + pendingFriend.id + '" onclick = "declineFriend(this.id)" class="btn btn-sm btn-danger btn-block" type="submit" style="width:100px; margin:0;"> <i class="fas fa-times"></i> Decline</button>' +
                       '</div>' +
                   '</div>';
   
@@ -181,4 +181,40 @@ function loadProfilePicture() {
       //profile picture not found
     }
   });
+}
+
+function acceptFriend(acceptingFriendID){
+
+  usersReference.where('id', '==', acceptingFriendID).get()
+  .then(function(querySnapshot) {
+    querySnapshot.forEach(function(friend) {
+      declineFriend(acceptingFriendID)
+      // send friend request data to firestore 
+      usersReference.doc(getUserId()).collection('FriendLists').doc(acceptingFriendID).set({
+        friendID: acceptingFriendID,
+        friendFirstName: friend.data().firstname,
+        friendLastName: friend.data().lastname
+        
+      }).catch(function(error) {
+        console.error('Error writing new friend request to firestore', error);
+      });
+    });
+  })
+  .catch(function(error) {
+      console.log("Error getting documents: ", error);
+  });
+}
+
+function declineFriend(decliningFriendID){
+
+  //get the data from friend request list associated with the searched user
+  usersReference.doc(getUserId()).collection("FriendRequests").doc(decliningFriendID).delete()
+  .then(function (querySnapshot) {
+    console.log("Request successfully declined!");
+    //send the user to the login page
+    window.location.href = "friends.html";
+  }).catch(function (error) {
+    console.log("Error getting user's friend request list...");
+  });
+
 }
