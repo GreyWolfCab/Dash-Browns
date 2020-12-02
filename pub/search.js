@@ -10,7 +10,7 @@ var friendDivElement = document.getElementsByClassName("searched-friend")[0];
 addButtonContainer.addEventListener("click", addFriend);
 cancelRequestContainer.addEventListener("click", cancelFriendRequest);
 
-initFirebaseAuth();//upon loading check the auth status of the user
+// initFirebaseAuth();//upon loading check the auth status of the user
 
 
 // search users 
@@ -35,18 +35,15 @@ function searchUser() {
           friendFound = 1;  // friend is found, true
 
           //get the data from friend request list associated with the searched user
-          usersReference.doc(doc.data().id).collection("FriendRequests").get()
+          usersReference.doc(doc.data().id).collection("FriendRequests").doc(getUserId()).get()
           .then(function (querySnapshot) {
-            querySnapshot.forEach(function(docdoc) {
-              if(docdoc.data().RequestUserID == getUserId()){
-                addButtonContainer.style.display = "none";
-                cancelRequestContainer.style.display = "block";
-              }
-              else{
-                addButtonContainer.style.display = "block";
-                cancelRequestContainer.style.display = "none";
-              }
-            });
+            if (querySnapshot.exists) {//send the user to their profile page
+              addButtonContainer.style.display = "none";
+              cancelRequestContainer.style.display = "block";
+            } else {//user doesn't exist in firestore
+            addButtonContainer.style.display = "block";
+            cancelRequestContainer.style.display = "none";
+            };
           }).catch(function (error) {
             console.log("Error getting user's friend request list...");
           });
