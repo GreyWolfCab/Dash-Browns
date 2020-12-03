@@ -35,7 +35,7 @@ function authStateObserver(user) {
 
     getUserInfo();
     loadProfilePicture();
-
+    loadFriends();
   } else {
     // No user is signed in.
     window.alert("Please login again.");
@@ -89,10 +89,62 @@ function switchTab(event, tabName) {
       loadPendingFriends();
       break;
     case "friends-list":
+      // loadFriends();
       break;
   }
 
 }
+
+function loadFriends() {
+
+  document.getElementById("friends-list").innerHTML = "";
+  pendingFriends = [];
+
+  usersReference.doc(getUserId()).collection("FriendLists").get()
+  .then(function(querySnapshot) {
+    querySnapshot.forEach(function(request) {
+      
+      const profileRef = storageRef.child("profile/" + request.data().friendID);//store with the friendLists's id
+      profileRef.getDownloadURL().then(function(url) {
+        
+        drawFriend(new PendingFriend(url, request.data().friendID, request.data().friendFirstName, request.data().friendLastName));
+      }).catch(function(error) {
+        if (error.code === 'storage/object-not-found') {
+          //profile picture not found
+        }
+      });
+      
+    });
+    
+  }).catch(function() {
+    //could not pull any friend requests
+  });
+
+}
+
+function drawFriend(friendInList) {
+
+  var list = document.getElementById("friends-list");//list element to hold all pending friends
+  list.appendChild(htmlFriend(friendInList));
+
+}
+
+function htmlFriend(friendInList) {
+
+  let div = document.createElement("div");
+  div.setAttribute("class", "friend");
+  div.innerHTML = '<img class="friend-img" src="' + friendInList.requestPicture + '"/>' +
+                  '<p class="friend-name"> ' + friendInList.firstName + ' ' + friendInList.lastName + '</p>' +
+                  '<div class="friendsbtngroup">' +
+                      '<div class="delete-btn" style=" margin-right:10px;">' +
+                          '<button id="' + friendInList.id + '" onclick = "deleteFriend(this.id)" class="btn btn-sm btn-danger btn-block" type="submit" style="width:100px;"> <i class="fas fa-user-times"></i> Delete</button>' +
+                      '</div>' +
+                  '</div>';
+  
+  return div;
+
+}
+
 
 function loadPendingFriends() {
 
@@ -153,23 +205,6 @@ function PendingFriend(requestPicture, id, firstName, lastName) {
   this.lastName = lastName;
 }
 
-// Initiate Firebase Auth.
-function initFirebaseAuth() {
-  // Listen to auth state changes.
-  firebase.auth().onAuthStateChanged(authStateObserver);
-}
-
-// Returns the signed-in user's ID.
-function getUserId() {
-  return firebase.auth().currentUser.uid;
-}
-
-// Signs-out of Dash Browns.
-function signOut() {
-  // Sign out of Firebase.
-  firebase.auth().signOut();
-}
-
 function loadProfilePicture() {
   const profileRef = storageRef.child("profile/" + getUserId());//load from the users id
   profileRef.getDownloadURL().then(function(url) {
@@ -185,9 +220,12 @@ function loadProfilePicture() {
 
 function acceptFriend(acceptingFriendID){
 
+
+  // adding the requested friend to the user's friend list
   usersReference.where('id', '==', acceptingFriendID).get()
   .then(function(querySnapshot) {
     querySnapshot.forEach(function(friend) {
+      // deleting the request from the pending list
       declineFriend(acceptingFriendID)
       // send friend request data to firestore 
       usersReference.doc(getUserId()).collection('FriendLists').doc(acceptingFriendID).set({
@@ -203,6 +241,40 @@ function acceptFriend(acceptingFriendID){
   .catch(function(error) {
       console.log("Error getting documents: ", error);
   });
+
+  // adding the user to the requested friend's friend list
+  usersReference.doc(getUserId()).get()
+  .then(function (userQuerySnapshot) {
+    if (userQuerySnapshot.exists) {//verify the user is in the database
+      //modify the html with the user's information
+      // RequestedUserFirstName = userQuerySnapshot.data().firstname // user's name
+      // RequestedUserLastName = userQuerySnapshot.data().lastname
+
+      usersReference.where('id', '==', acceptingFriendID).get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          console.log(userQuerySnapshot.data().firstname + " is now friend with " + doc.data().firstname)
+
+          // send friend request data to firestore 
+          usersReference.doc(doc.data().id).collection("FriendLists").doc(getUserId()).set({
+            friendID: getUserId(),
+            friendFirstName: userQuerySnapshot.data().firstname,
+            friendLastName: userQuerySnapshot.data().lastname
+          }).catch(function(error) {
+            console.error('Error writing new friend request to firestore', error);
+          });
+        });
+      })
+      .catch(function(error) {
+          console.log("Error getting documents: ", error);
+      });
+
+
+    }
+  })
+  .catch(function (error) {
+    console.log("Error getting User information:", error);
+  });
 }
 
 function declineFriend(decliningFriendID){
@@ -217,4 +289,37 @@ function declineFriend(decliningFriendID){
     console.log("Error getting user's friend request list...");
   });
 
+}
+
+
+
+function deleteFriend(deletingFriendID){
+
+  //get the data from friend request list associated with the searched user
+  usersReference.doc(getUserId()).collection("FriendLists").doc(deletingFriendID).delete()
+  .then(function (querySnapshot) {
+    console.log("Friend successfully deleted!");
+    //send the user to the login page
+    window.location.href = "friends.html";
+  }).catch(function (error) {
+    console.log("Error getting user's friend request list...");
+  });
+
+}
+
+// Initiate Firebase Auth.
+function initFirebaseAuth() {
+  // Listen to auth state changes.
+  firebase.auth().onAuthStateChanged(authStateObserver);
+}
+
+// Returns the signed-in user's ID.
+function getUserId() {
+  return firebase.auth().currentUser.uid;
+}
+
+// Signs-out of Dash Browns.
+function signOut() {
+  // Sign out of Firebase.
+  firebase.auth().signOut();
 }

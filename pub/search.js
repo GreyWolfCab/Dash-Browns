@@ -23,31 +23,46 @@ function searchUser() {
     .then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
 
-        if(doc.data().id === getUserId()){
-          friendDivElement.style.display = "none";
-        }
-        else{
-          friendDivElement.style.display = "flex";
-          // console.log(doc.data().firstname, " => ", doc.data().id);
-          // console.log(getUserId());
-          var dispName = doc.data().firstname + " " + doc.data().lastname;
-          searchUserNameElement.textContent = dispName;
-          friendFound = 1;  // friend is found, true
+        //get the data from friend list associated with the searched user
+        usersReference.doc(getUserId()).collection("FriendLists").doc(doc.data().id).get()
+        .then(function (querySnapshot) {
+          if (querySnapshot.exists) {//send the user to their profile page
+            friendDivElement.style.display = "none";
+          } else {//user doesn't exist in firestore
 
-          //get the data from friend request list associated with the searched user
-          usersReference.doc(doc.data().id).collection("FriendRequests").doc(getUserId()).get()
-          .then(function (querySnapshot) {
-            if (querySnapshot.exists) {//send the user to their profile page
-              addButtonContainer.style.display = "none";
-              cancelRequestContainer.style.display = "block";
-            } else {//user doesn't exist in firestore
-            addButtonContainer.style.display = "block";
-            cancelRequestContainer.style.display = "none";
-            };
-          }).catch(function (error) {
-            console.log("Error getting user's friend request list...");
-          });
-        }
+          
+          if(doc.data().id === getUserId()){
+            friendDivElement.style.display = "none";
+          }
+          else{
+            friendDivElement.style.display = "flex";
+            // console.log(doc.data().firstname, " => ", doc.data().id);
+            // console.log(getUserId());
+            var dispName = doc.data().firstname + " " + doc.data().lastname;
+            searchUserNameElement.textContent = dispName;
+            friendFound = 1;  // friend is found, true
+  
+            //get the data from friend request list associated with the searched user
+            usersReference.doc(doc.data().id).collection("FriendRequests").doc(getUserId()).get()
+            .then(function (querySnapshot) {
+              if (querySnapshot.exists) {//send the user to their profile page
+                addButtonContainer.style.display = "none";
+                cancelRequestContainer.style.display = "block";
+              } else {//user doesn't exist in firestore
+              addButtonContainer.style.display = "block";
+              cancelRequestContainer.style.display = "none";
+              };
+            }).catch(function (error) {
+              console.log("Error getting user's friend request list...");
+            });
+          }
+          
+          };
+        }).catch(function (error) {
+          console.log("Error getting user's friend request list...");
+        });
+
+        
       });
       if(friendFound === 0){  // friend is not found, false
         friendDivElement.style.display = "none";
