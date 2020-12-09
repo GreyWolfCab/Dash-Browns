@@ -89,7 +89,7 @@ function switchTab(event, tabName) {
       loadPendingFriends();
       break;
     case "friends-list":
-      // loadFriends();
+      loadFriends();
       break;
   }
 

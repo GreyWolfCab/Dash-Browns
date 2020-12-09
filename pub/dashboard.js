@@ -78,7 +78,7 @@ var activitiesList = [];//empty list of user activities
 function authStateObserver(user) {
   
   var user = firebase.auth().currentUser;//authentication observer that holds user details
-  
+
   if (user) {//user successfully logged in
 
     getUserInfo();
@@ -94,7 +94,6 @@ function authStateObserver(user) {
 }
 
 /**
- * TODO: include type and privacy of activity
  * build an html object of an activity to add in a unordered list and present to the user
  * @param {Activity} activity object that stores a single activity's data
  */
